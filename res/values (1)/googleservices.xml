@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="firebase_database_url" translatable="false">https://geovin-3cb9a.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">534431712155</string>
+  <string name="google_storage_bucket" translatable="false">geovin-3cb9a.appspot.com</string>
+  <string name="project_id" translatable="false">geovin-3cb9a</string>
+  <string name="google_app_id" translatable="false">1:534431712155:android:c81bf18177056d49</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDcMhzH6tVSKwajIzzFY4TUrcUupD1nshk</string>
+  <string name="google_api_key" translatable="false">AIzaSyDcMhzH6tVSKwajIzzFY4TUrcUupD1nshk</string>
+  <string name="default_web_client_id" translatable="false">534431712155-sasvnc24kitjjha2m5p1tconotjb6tf4.apps.googleusercontent.com</string>
+</resources>
