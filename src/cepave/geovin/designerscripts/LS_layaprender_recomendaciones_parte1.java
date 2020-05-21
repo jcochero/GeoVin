@@ -4,7 +4,7 @@ import anywheresoftware.b4a.objects.ImageViewWrapper;
 import anywheresoftware.b4a.BA;
 
 
-public class LS_layperfildatosanteriores_lista{
+public class LS_layaprender_recomendaciones_parte1{
 
 public static void LS_general(java.util.LinkedHashMap<String, anywheresoftware.b4a.keywords.LayoutBuilder.ViewWrapperAndAnchor> views, int width, int height, float scale) {
 anywheresoftware.b4a.keywords.LayoutBuilder.setScaleRate(0.3);

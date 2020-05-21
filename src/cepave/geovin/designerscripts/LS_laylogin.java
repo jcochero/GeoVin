@@ -4,10 +4,13 @@ import anywheresoftware.b4a.objects.ImageViewWrapper;
 import anywheresoftware.b4a.BA;
 
 
-public class LS_laycomofotos_panels{
+public class LS_laylogin{
 
 public static void LS_320x480_1(java.util.LinkedHashMap<String, anywheresoftware.b4a.keywords.LayoutBuilder.ViewWrapperAndAnchor> views, int width, int height, float scale) {
 anywheresoftware.b4a.keywords.LayoutBuilder.setScaleRate(0.3);
+((anywheresoftware.b4a.keywords.LayoutBuilder.DesignerTextSizeMethod)views.get("btnregister").vw).setTextSize((float)(16d));
+views.get("imageview1").vw.setLeft((int)((50d / 100 * width)-(views.get("imageview1").vw.getWidth())/2d));
+//BA.debugLineNum = 4;BA.debugLine="AutoScaleAll"[layLogin/320x480,scale=1]
 anywheresoftware.b4a.keywords.LayoutBuilder.scaleAll(views);
 
 }
