@@ -136,6 +136,7 @@ public cepave.geovin.frmfotos _frmfotos = null;
 public cepave.geovin.utilidades _utilidades = null;
 public cepave.geovin.dbutils _dbutils = null;
 public cepave.geovin.starter _starter = null;
+public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.firebasemessaging _firebasemessaging = null;
 public cepave.geovin.frmabout _frmabout = null;
 public cepave.geovin.frmaprender_chagas _frmaprender_chagas = null;
@@ -145,7 +146,6 @@ public cepave.geovin.frmdatosanteriores _frmdatosanteriores = null;
 public cepave.geovin.frmeditprofile _frmeditprofile = null;
 public cepave.geovin.frmespecies _frmespecies = null;
 public cepave.geovin.frmidentificacionnew _frmidentificacionnew = null;
-public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.frmlogin _frmlogin = null;
 public cepave.geovin.frmpoliticadatos _frmpoliticadatos = null;
 public cepave.geovin.frmrecomendaciones _frmrecomendaciones = null;
@@ -175,7 +175,7 @@ public static String  _hc_responseerror(anywheresoftware.b4h.okhttp.OkHttpClient
  //BA.debugLineNum = 65;BA.debugLine="If Response <> Null Then";
 if (_response!= null) { 
  //BA.debugLineNum = 66;BA.debugLine="Log(Response.ErrorResponse)";
-anywheresoftware.b4a.keywords.Common.LogImpl("528377090",_response.getErrorResponse(),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("227197442",_response.getErrorResponse(),0);
  //BA.debugLineNum = 67;BA.debugLine="Response.Release";
 _response.Release();
  };
@@ -204,7 +204,7 @@ _jt.Total /*long*/  = _response.getContentLength();
  //BA.debugLineNum = 47;BA.debugLine="If jt.Data.url = \"\" Then";
 if ((_jt.Data /*cepave.geovin.downloadservice._downloaddata*/ .url /*String*/ ).equals("")) { 
  //BA.debugLineNum = 48;BA.debugLine="Log(\"Job cancelled before downloaded started\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("528246025","Job cancelled before downloaded started",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("227066377","Job cancelled before downloaded started",0);
  //BA.debugLineNum = 49;BA.debugLine="cs.Close";
 _cs.Close();
  };

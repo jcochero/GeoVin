@@ -27,6 +27,7 @@ public class frmrecomendaciones extends Activity implements B4AActivity{
 	public static final boolean fullScreen = false;
 	public static final boolean includeTitle = false;
     public static WeakReference<Activity> previousOne;
+    public static boolean dontPause;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -266,11 +267,17 @@ public class frmrecomendaciones extends Activity implements B4AActivity{
         if (this != mostCurrent)
 			return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
-        BA.LogInfo("** Activity (frmrecomendaciones) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        if (!dontPause)
+            BA.LogInfo("** Activity (frmrecomendaciones) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        else
+            BA.LogInfo("** Activity (frmrecomendaciones) Pause event (activity is not paused). **");
         if (mostCurrent != null)
             processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
-        processBA.setActivityPaused(true);
-        mostCurrent = null;
+        if (!dontPause) {
+            processBA.setActivityPaused(true);
+            mostCurrent = null;
+        }
+
         if (!activityBA.activity.isFinishing())
 			previousOne = new WeakReference<Activity>(this);
         anywheresoftware.b4a.Msgbox.isDismissing = false;
@@ -341,6 +348,7 @@ public cepave.geovin.frmfotos _frmfotos = null;
 public cepave.geovin.utilidades _utilidades = null;
 public cepave.geovin.dbutils _dbutils = null;
 public cepave.geovin.starter _starter = null;
+public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.firebasemessaging _firebasemessaging = null;
 public cepave.geovin.frmabout _frmabout = null;
 public cepave.geovin.frmaprender_chagas _frmaprender_chagas = null;
@@ -350,7 +358,6 @@ public cepave.geovin.frmdatosanteriores _frmdatosanteriores = null;
 public cepave.geovin.frmeditprofile _frmeditprofile = null;
 public cepave.geovin.frmespecies _frmespecies = null;
 public cepave.geovin.frmidentificacionnew _frmidentificacionnew = null;
-public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.frmlogin _frmlogin = null;
 public cepave.geovin.frmpoliticadatos _frmpoliticadatos = null;
 public cepave.geovin.httputils2service _httputils2service = null;

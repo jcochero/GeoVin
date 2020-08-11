@@ -27,6 +27,7 @@ public class frmprincipal extends Activity implements B4AActivity{
 	public static final boolean fullScreen = false;
 	public static final boolean includeTitle = false;
     public static WeakReference<Activity> previousOne;
+    public static boolean dontPause;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -266,11 +267,17 @@ public class frmprincipal extends Activity implements B4AActivity{
         if (this != mostCurrent)
 			return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
-        BA.LogInfo("** Activity (frmprincipal) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        if (!dontPause)
+            BA.LogInfo("** Activity (frmprincipal) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        else
+            BA.LogInfo("** Activity (frmprincipal) Pause event (activity is not paused). **");
         if (mostCurrent != null)
             processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
-        processBA.setActivityPaused(true);
-        mostCurrent = null;
+        if (!dontPause) {
+            processBA.setActivityPaused(true);
+            mostCurrent = null;
+        }
+
         if (!activityBA.activity.isFinishing())
 			previousOne = new WeakReference<Activity>(this);
         anywheresoftware.b4a.Msgbox.isDismissing = false;
@@ -393,6 +400,7 @@ public cepave.geovin.frmfotos _frmfotos = null;
 public cepave.geovin.utilidades _utilidades = null;
 public cepave.geovin.dbutils _dbutils = null;
 public cepave.geovin.starter _starter = null;
+public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.firebasemessaging _firebasemessaging = null;
 public cepave.geovin.frmabout _frmabout = null;
 public cepave.geovin.frmaprender_chagas _frmaprender_chagas = null;
@@ -402,7 +410,6 @@ public cepave.geovin.frmdatosanteriores _frmdatosanteriores = null;
 public cepave.geovin.frmeditprofile _frmeditprofile = null;
 public cepave.geovin.frmespecies _frmespecies = null;
 public cepave.geovin.frmidentificacionnew _frmidentificacionnew = null;
-public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.frmlogin _frmlogin = null;
 public cepave.geovin.frmpoliticadatos _frmpoliticadatos = null;
 public cepave.geovin.frmrecomendaciones _frmrecomendaciones = null;
@@ -656,7 +663,7 @@ for (;_i <= limit2 ;_i = _i + step2 ) {
  //BA.debugLineNum = 1304;BA.debugLine="Dim chk As CheckBox";
 _chk = new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper();
  //BA.debugLineNum = 1305;BA.debugLine="chk = listaConfig.Get(i)";
-_chk.setObject((android.widget.CheckBox)(mostCurrent._listaconfig.Get(_i)));
+_chk = (anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper(), (android.widget.CheckBox)(mostCurrent._listaconfig.Get(_i)));
  //BA.debugLineNum = 1306;BA.debugLine="chk.Checked = True";
 _chk.setChecked(anywheresoftware.b4a.keywords.Common.True);
  }
@@ -679,7 +686,7 @@ for (;_i <= limit13 ;_i = _i + step13 ) {
  //BA.debugLineNum = 1318;BA.debugLine="Dim chk As CheckBox";
 _chk = new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper();
  //BA.debugLineNum = 1319;BA.debugLine="chk = listaConfig.Get(i)";
-_chk.setObject((android.widget.CheckBox)(mostCurrent._listaconfig.Get(_i)));
+_chk = (anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper(), (android.widget.CheckBox)(mostCurrent._listaconfig.Get(_i)));
  //BA.debugLineNum = 1320;BA.debugLine="chk.Checked = False";
 _chk.setChecked(anywheresoftware.b4a.keywords.Common.False);
  }
@@ -936,7 +943,7 @@ for (;_i <= limit11 ;_i = _i + step11 ) {
  //BA.debugLineNum = 1347;BA.debugLine="Dim chk As CheckBox";
 _chk = new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper();
  //BA.debugLineNum = 1348;BA.debugLine="chk = listaConfig.Get(i)";
-_chk.setObject((android.widget.CheckBox)(mostCurrent._listaconfig.Get(_i)));
+_chk = (anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper(), (android.widget.CheckBox)(mostCurrent._listaconfig.Get(_i)));
  //BA.debugLineNum = 1349;BA.debugLine="listaChequeados.Add(chk)";
 mostCurrent._listachequeados.Add((Object)(_chk.getObject()));
  //BA.debugLineNum = 1350;BA.debugLine="If chk.Checked = True Then";
@@ -1011,7 +1018,7 @@ for (;_i <= limit51 ;_i = _i + step51 ) {
  //BA.debugLineNum = 1406;BA.debugLine="Dim markerAMostrar As OSMDroid_Marker";
 _markeramostrar = new uk.co.martinpearman.b4a.osmdroid.views.overlay.Marker();
  //BA.debugLineNum = 1407;BA.debugLine="markerAMostrar = markersList.Get(i)";
-_markeramostrar.setObject((uk.co.martinpearman.osmdroid.views.overlay.Marker)(mostCurrent._markerslist.Get(_i)));
+_markeramostrar = (uk.co.martinpearman.b4a.osmdroid.views.overlay.Marker) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new uk.co.martinpearman.b4a.osmdroid.views.overlay.Marker(), (uk.co.martinpearman.osmdroid.views.overlay.Marker)(mostCurrent._markerslist.Get(_i)));
  //BA.debugLineNum = 1409;BA.debugLine="If markerAMostrar.GetSnippet = \"geovin\" And list";
 if ((_markeramostrar.GetSnippet()).equals("geovin") && (_listmostrarconfig.Get((int) (0))).equals((Object)("geovin"))) { 
  //BA.debugLineNum = 1410;BA.debugLine="Dim j As Int = listMostrar.IndexOf(markerAMostr";
@@ -1176,7 +1183,7 @@ _chklista = new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapp
  //BA.debugLineNum = 1147;BA.debugLine="Dim chkNew As CheckBox";
 _chknew = new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper();
  //BA.debugLineNum = 1148;BA.debugLine="chklista = listaChequeados.Get(i)";
-_chklista.setObject((android.widget.CheckBox)(mostCurrent._listachequeados.Get(_i)));
+_chklista = (anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.CompoundButtonWrapper.CheckBoxWrapper(), (android.widget.CheckBox)(mostCurrent._listachequeados.Get(_i)));
  //BA.debugLineNum = 1149;BA.debugLine="chkNew.Initialize(\"\")";
 _chknew.Initialize(mostCurrent.activityBA,"");
  //BA.debugLineNum = 1150;BA.debugLine="chkNew.Text = chklista.Text";
@@ -1511,16 +1518,16 @@ mostCurrent._dbutils._insertmaps /*String*/ (mostCurrent.activityBA,mostCurrent.
  } 
        catch (Exception e17) {
 			processBA.setLastException(e17); //BA.debugLineNum = 518;BA.debugLine="Log(LastException)";
-anywheresoftware.b4a.keywords.Common.LogImpl("53211285",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("21638421",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
  //BA.debugLineNum = 519;BA.debugLine="Log(\"dbdir=\" & Starter.dbdir)";
-anywheresoftware.b4a.keywords.Common.LogImpl("53211286","dbdir="+mostCurrent._starter._dbdir /*String*/ ,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("21638422","dbdir="+mostCurrent._starter._dbdir /*String*/ ,0);
  //BA.debugLineNum = 520;BA.debugLine="ToastMessageShow(\"Hubo un error con la base de d";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Hubo un error con la base de datos, intente de nuevo"),anywheresoftware.b4a.keywords.Common.False);
  //BA.debugLineNum = 521;BA.debugLine="Return";
 if (true) return "";
  };
  //BA.debugLineNum = 527;BA.debugLine="Log(\"deviceID: \" & Main.deviceID)";
-anywheresoftware.b4a.keywords.Common.LogImpl("53211294","deviceID: "+mostCurrent._main._deviceid /*String*/ ,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("21638430","deviceID: "+mostCurrent._main._deviceid /*String*/ ,0);
  //BA.debugLineNum = 529;BA.debugLine="Dim currentprojectMap As Map";
 _currentprojectmap = new anywheresoftware.b4a.objects.collections.Map();
  //BA.debugLineNum = 530;BA.debugLine="currentprojectMap.Initialize";
@@ -1529,9 +1536,9 @@ _currentprojectmap.Initialize();
 try { //BA.debugLineNum = 532;BA.debugLine="currentprojectMap = DBUtils.ExecuteMap(Starter.s";
 _currentprojectmap = mostCurrent._dbutils._executemap /*anywheresoftware.b4a.objects.collections.Map*/ (mostCurrent.activityBA,mostCurrent._starter._sqldb /*anywheresoftware.b4a.sql.SQL*/ ,"SELECT * FROM markers_local ORDER BY id DESC LIMIT 1",(String[])(anywheresoftware.b4a.keywords.Common.Null));
  //BA.debugLineNum = 533;BA.debugLine="Log(\"currentprojectMap: \" & currentprojectMap.Ge";
-anywheresoftware.b4a.keywords.Common.LogImpl("53211300","currentprojectMap: "+BA.ObjectToString(_currentprojectmap.Get((Object)("id"))),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("21638436","currentprojectMap: "+BA.ObjectToString(_currentprojectmap.Get((Object)("id"))),0);
  //BA.debugLineNum = 534;BA.debugLine="Log(\"deviceID: \" & Main.deviceID.SubString2(0,6)";
-anywheresoftware.b4a.keywords.Common.LogImpl("53211301","deviceID: "+mostCurrent._main._deviceid /*String*/ .substring((int) (0),(int) (6)),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("21638437","deviceID: "+mostCurrent._main._deviceid /*String*/ .substring((int) (0),(int) (6)),0);
  //BA.debugLineNum = 535;BA.debugLine="If currentprojectMap = Null Or currentprojectMap";
 if (_currentprojectmap== null || _currentprojectmap.IsInitialized()==anywheresoftware.b4a.keywords.Common.False) { 
  //BA.debugLineNum = 536;BA.debugLine="Main.currentproject = 1";
@@ -1559,7 +1566,7 @@ _usernametemp = mostCurrent._main._username /*String*/ ;
  //BA.debugLineNum = 548;BA.debugLine="fullidcurrentproject = usernameTemp & \"_\" & Mai";
 _fullidcurrentproject = _usernametemp+"_"+mostCurrent._main._currentproject /*String*/ +"_"+mostCurrent._main._datecurrentproject /*String*/ ;
  //BA.debugLineNum = 549;BA.debugLine="Log(\"fullidcurrentproject: \" & fullidcurrentpro";
-anywheresoftware.b4a.keywords.Common.LogImpl("53211316","fullidcurrentproject: "+_fullidcurrentproject,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("21638452","fullidcurrentproject: "+_fullidcurrentproject,0);
  //BA.debugLineNum = 550;BA.debugLine="DBUtils.UpdateRecord(Starter.sqlDB, \"markers_lo";
 mostCurrent._dbutils._updaterecord /*String*/ (mostCurrent.activityBA,mostCurrent._starter._sqldb /*anywheresoftware.b4a.sql.SQL*/ ,"markers_local","fullID",(Object)(_fullidcurrentproject),_map1);
  }else {
@@ -1586,18 +1593,18 @@ _usernametemp = "guest"+mostCurrent._main._deviceid /*String*/ .substring((int) 
 _usernametemp = mostCurrent._main._username /*String*/ ;
  };
  //BA.debugLineNum = 564;BA.debugLine="Log(\"check1\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("53211331","check1",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("21638467","check1",0);
  //BA.debugLineNum = 565;BA.debugLine="fullidcurrentproject = usernameTemp & \"_\" & Mai";
 _fullidcurrentproject = _usernametemp+"_"+mostCurrent._main._currentproject /*String*/ +"_"+mostCurrent._main._datecurrentproject /*String*/ ;
  //BA.debugLineNum = 566;BA.debugLine="Log(\"fullidcurrentproject: \" & fullidcurrentpro";
-anywheresoftware.b4a.keywords.Common.LogImpl("53211333","fullidcurrentproject: "+_fullidcurrentproject,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("21638469","fullidcurrentproject: "+_fullidcurrentproject,0);
  //BA.debugLineNum = 567;BA.debugLine="DBUtils.UpdateRecord(Starter.sqlDB, \"markers_lo";
 mostCurrent._dbutils._updaterecord /*String*/ (mostCurrent.activityBA,mostCurrent._starter._sqldb /*anywheresoftware.b4a.sql.SQL*/ ,"markers_local","fullID",(Object)(_fullidcurrentproject),_map1);
  };
  } 
        catch (Exception e64) {
 			processBA.setLastException(e64); //BA.debugLineNum = 571;BA.debugLine="Log(LastException)";
-anywheresoftware.b4a.keywords.Common.LogImpl("53211338",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("21638474",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
  //BA.debugLineNum = 572;BA.debugLine="ToastMessageShow(\"Hubo un error, intente de nuev";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Hubo un error, intente de nuevo"),anywheresoftware.b4a.keywords.Common.False);
  //BA.debugLineNum = 573;BA.debugLine="Return";
@@ -1639,14 +1646,14 @@ if (_fusedlocationprovider1.IsInitialized()==anywheresoftware.b4a.keywords.Commo
  //BA.debugLineNum = 666;BA.debugLine="FusedLocationProvider1.Initialize(\"FusedLocation";
 _fusedlocationprovider1.Initialize(processBA,"FusedLocationProviderExplorar");
  //BA.debugLineNum = 667;BA.debugLine="Log(\"init fusedlocationproviderExplorar\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("53473429","init fusedlocationproviderExplorar",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("21900565","init fusedlocationproviderExplorar",0);
  };
  //BA.debugLineNum = 669;BA.debugLine="If FusedLocationProvider1.IsConnected = False The";
 if (_fusedlocationprovider1.IsConnected()==anywheresoftware.b4a.keywords.Common.False) { 
  //BA.debugLineNum = 670;BA.debugLine="FusedLocationProvider1.Connect";
 _fusedlocationprovider1.Connect();
  //BA.debugLineNum = 671;BA.debugLine="Log(\"connecting fusedlocationproviderExplorar\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("53473433","connecting fusedlocationproviderExplorar",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("21900569","connecting fusedlocationproviderExplorar",0);
  };
  //BA.debugLineNum = 673;BA.debugLine="End Sub";
 return "";
@@ -1663,7 +1670,7 @@ return "";
 public static String  _fusedlocationprovider1_connectionfailed(int _connectionresult1) throws Exception{
  //BA.debugLineNum = 686;BA.debugLine="Sub FusedLocationProvider1_ConnectionFailed(Connec";
  //BA.debugLineNum = 687;BA.debugLine="Log(\"FusedLocationProvider1_ConnectionFailed\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("53604481","FusedLocationProvider1_ConnectionFailed",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22031617","FusedLocationProvider1_ConnectionFailed",0);
  //BA.debugLineNum = 691;BA.debugLine="Select ConnectionResult1";
 switch (BA.switchObjectToInt(_connectionresult1,_fusedlocationprovider1.ConnectionResult.NETWORK_ERROR)) {
 case 0: {
@@ -1682,7 +1689,7 @@ uk.co.martinpearman.b4a.fusedlocationprovider.LocationRequest _locationrequest1 
 uk.co.martinpearman.b4a.fusedlocationprovider.LocationSettingsRequestBuilder _locationsettingsrequestbuilder1 = null;
  //BA.debugLineNum = 700;BA.debugLine="Sub FusedLocationProvider1_ConnectionSuccess";
  //BA.debugLineNum = 701;BA.debugLine="Log(\"FusedLocationProvider1_ConnectionSuccess\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("53670017","FusedLocationProvider1_ConnectionSuccess",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22097153","FusedLocationProvider1_ConnectionSuccess",0);
  //BA.debugLineNum = 702;BA.debugLine="Dim LocationRequest1 As LocationRequest";
 _locationrequest1 = new uk.co.martinpearman.b4a.fusedlocationprovider.LocationRequest();
  //BA.debugLineNum = 703;BA.debugLine="LocationRequest1.Initialize";
@@ -1709,7 +1716,7 @@ return "";
 public static String  _fusedlocationprovider1_connectionsuspended(int _suspendedcause1) throws Exception{
  //BA.debugLineNum = 718;BA.debugLine="Sub FusedLocationProvider1_ConnectionSuspended(Sus";
  //BA.debugLineNum = 719;BA.debugLine="Log(\"FusedLocationProvider1_ConnectionSuspended\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("53735553","FusedLocationProvider1_ConnectionSuspended",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22162689","FusedLocationProvider1_ConnectionSuspended",0);
  //BA.debugLineNum = 723;BA.debugLine="Select SuspendedCause1";
 switch (BA.switchObjectToInt(_suspendedcause1,_fusedlocationprovider1.SuspendedCause.CAUSE_NETWORK_LOST,_fusedlocationprovider1.SuspendedCause.CAUSE_SERVICE_DISCONNECTED)) {
 case 0: {
@@ -1724,13 +1731,13 @@ return "";
 public static String  _fusedlocationprovider1_locationchanged(anywheresoftware.b4a.gps.LocationWrapper _location1) throws Exception{
  //BA.debugLineNum = 730;BA.debugLine="Sub FusedLocationProvider1_LocationChanged(Locatio";
  //BA.debugLineNum = 731;BA.debugLine="Log(\"FusedLocationProvider1_LocationChanged\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("53801089","FusedLocationProvider1_LocationChanged",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22228225","FusedLocationProvider1_LocationChanged",0);
  //BA.debugLineNum = 732;BA.debugLine="LastLocation=Location1";
 _lastlocation = _location1;
  //BA.debugLineNum = 733;BA.debugLine="Log(LastLocation.Latitude)";
-anywheresoftware.b4a.keywords.Common.LogImpl("53801091",BA.NumberToString(_lastlocation.getLatitude()),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22228227",BA.NumberToString(_lastlocation.getLatitude()),0);
  //BA.debugLineNum = 734;BA.debugLine="Log(LastLocation.Longitude)";
-anywheresoftware.b4a.keywords.Common.LogImpl("53801092",BA.NumberToString(_lastlocation.getLongitude()),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22228228",BA.NumberToString(_lastlocation.getLongitude()),0);
  //BA.debugLineNum = 735;BA.debugLine="UpdateUI";
 _updateui();
  //BA.debugLineNum = 736;BA.debugLine="End Sub";
@@ -1740,7 +1747,7 @@ public static String  _fusedlocationprovider1_locationsettingschecked(uk.co.mart
 uk.co.martinpearman.b4a.fusedlocationprovider.LocationSettingsStatus _locationsettingsstatus1 = null;
  //BA.debugLineNum = 737;BA.debugLine="Sub FusedLocationProvider1_LocationSettingsChecked";
  //BA.debugLineNum = 738;BA.debugLine="Log(\"FusedLocationProvider1_LocationSettingsCheck";
-anywheresoftware.b4a.keywords.Common.LogImpl("53866625","FusedLocationProvider1_LocationSettingsChecked",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22293761","FusedLocationProvider1_LocationSettingsChecked",0);
  //BA.debugLineNum = 739;BA.debugLine="Dim LocationSettingsStatus1 As LocationSettingsSt";
 _locationsettingsstatus1 = new uk.co.martinpearman.b4a.fusedlocationprovider.LocationSettingsStatus();
 _locationsettingsstatus1 = _locationsettingsresult1.GetLocationSettingsStatus();
@@ -1748,13 +1755,13 @@ _locationsettingsstatus1 = _locationsettingsresult1.GetLocationSettingsStatus();
 switch (BA.switchObjectToInt(_locationsettingsstatus1.GetStatusCode(),_locationsettingsstatus1.StatusCodes.RESOLUTION_REQUIRED,_locationsettingsstatus1.StatusCodes.SETTINGS_CHANGE_UNAVAILABLE,_locationsettingsstatus1.StatusCodes.SUCCESS)) {
 case 0: {
  //BA.debugLineNum = 742;BA.debugLine="Log(\"RESOLUTION_REQUIRED\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("53866629","RESOLUTION_REQUIRED",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22293765","RESOLUTION_REQUIRED",0);
  //BA.debugLineNum = 745;BA.debugLine="LocationSettingsStatus1.StartResolutionDialog(\"";
 _locationsettingsstatus1.StartResolutionDialog(mostCurrent.activityBA,"LocationSettingsResult1");
  break; }
 case 1: {
  //BA.debugLineNum = 747;BA.debugLine="Log(\"SETTINGS_CHANGE_UNAVAILABLE\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("53866634","SETTINGS_CHANGE_UNAVAILABLE",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22293770","SETTINGS_CHANGE_UNAVAILABLE",0);
  //BA.debugLineNum = 750;BA.debugLine="If Main.lang = \"es\" Then";
 if ((mostCurrent._main._lang /*String*/ ).equals("es")) { 
  //BA.debugLineNum = 751;BA.debugLine="Msgbox(\"Error, tu dispositivo no tiene localiz";
@@ -1768,7 +1775,7 @@ mostCurrent._activity.Finish();
  break; }
 case 2: {
  //BA.debugLineNum = 757;BA.debugLine="Log(\"SUCCESS\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("53866644","SUCCESS",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22293780","SUCCESS",0);
  break; }
 }
 ;
@@ -1877,7 +1884,7 @@ String _nombreusuario = "";
 uk.co.martinpearman.b4a.osmdroid.views.overlay.Marker _marker = null;
  //BA.debugLineNum = 839;BA.debugLine="Sub GetMiMapa_Complete(Job As HttpJob)";
  //BA.debugLineNum = 840;BA.debugLine="Log(\"GetMapa messages: \" & Job.Success)";
-anywheresoftware.b4a.keywords.Common.LogImpl("54128769","GetMapa messages: "+BA.ObjectToString(_job._success /*boolean*/ ),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22555905","GetMapa messages: "+BA.ObjectToString(_job._success /*boolean*/ ),0);
  //BA.debugLineNum = 841;BA.debugLine="If Job.Success = True Then";
 if (_job._success /*boolean*/ ==anywheresoftware.b4a.keywords.Common.True) { 
  //BA.debugLineNum = 842;BA.debugLine="Dim ret As String";
@@ -2279,7 +2286,7 @@ mostCurrent._mapview1.GetController().SetZoom((int) (7));
  };
  }else {
  //BA.debugLineNum = 1087;BA.debugLine="Log(\"GetMapa not ok\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("54129016","GetMapa not ok",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22556152","GetMapa not ok",0);
  //BA.debugLineNum = 1088;BA.debugLine="If Main.lang = \"es\" Then";
 if ((mostCurrent._main._lang /*String*/ ).equals("es")) { 
  //BA.debugLineNum = 1089;BA.debugLine="Msgbox(\"Al parecer hay un problema en nuestros";
@@ -2415,7 +2422,7 @@ return "";
 public static String  _locationsettingsresult1_resolutiondialogdismissed(boolean _locationsettingsupdated) throws Exception{
  //BA.debugLineNum = 762;BA.debugLine="Sub LocationSettingsResult1_ResolutionDialogDismis";
  //BA.debugLineNum = 763;BA.debugLine="Log(\"LocationSettingsResult1_ResolutionDialogDism";
-anywheresoftware.b4a.keywords.Common.LogImpl("53932161","LocationSettingsResult1_ResolutionDialogDismissed",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("22359297","LocationSettingsResult1_ResolutionDialogDismissed",0);
  //BA.debugLineNum = 764;BA.debugLine="If Not(LocationSettingsUpdated) Then";
 if (anywheresoftware.b4a.keywords.Common.Not(_locationsettingsupdated)) { 
  //BA.debugLineNum = 766;BA.debugLine="If Main.lang = \"es\" Then";
@@ -2479,7 +2486,7 @@ String _act = "";
 anywheresoftware.b4a.objects.collections.JSONParser _parser = null;
  //BA.debugLineNum = 1506;BA.debugLine="Sub ResetMessages_Complete(Job As HttpJob)";
  //BA.debugLineNum = 1507;BA.debugLine="Log(\"Reset messages: \" & Job.Success)";
-anywheresoftware.b4a.keywords.Common.LogImpl("55111809","Reset messages: "+BA.ObjectToString(_job._success /*boolean*/ ),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("23538945","Reset messages: "+BA.ObjectToString(_job._success /*boolean*/ ),0);
  //BA.debugLineNum = 1508;BA.debugLine="If Job.Success = True Then";
 if (_job._success /*boolean*/ ==anywheresoftware.b4a.keywords.Common.True) { 
  //BA.debugLineNum = 1509;BA.debugLine="Dim ret As String";
@@ -2507,7 +2514,7 @@ anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("L
 _resetting_msg = anywheresoftware.b4a.keywords.Common.False;
  }else {
  //BA.debugLineNum = 1524;BA.debugLine="Log(\"reset messages not ok\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("55111826","reset messages not ok",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("23538962","reset messages not ok",0);
  //BA.debugLineNum = 1525;BA.debugLine="If Main.lang = \"es\" Then";
 if ((mostCurrent._main._lang /*String*/ ).equals("es")) { 
  //BA.debugLineNum = 1526;BA.debugLine="Msgbox(\"Al parecer hay un problema en nuestros";

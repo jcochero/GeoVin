@@ -27,6 +27,7 @@ public class register extends Activity implements B4AActivity{
 	public static final boolean fullScreen = false;
 	public static final boolean includeTitle = false;
     public static WeakReference<Activity> previousOne;
+    public static boolean dontPause;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -266,11 +267,17 @@ public class register extends Activity implements B4AActivity{
         if (this != mostCurrent)
 			return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
-        BA.LogInfo("** Activity (register) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        if (!dontPause)
+            BA.LogInfo("** Activity (register) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        else
+            BA.LogInfo("** Activity (register) Pause event (activity is not paused). **");
         if (mostCurrent != null)
             processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
-        processBA.setActivityPaused(true);
-        mostCurrent = null;
+        if (!dontPause) {
+            processBA.setActivityPaused(true);
+            mostCurrent = null;
+        }
+
         if (!activityBA.activity.isFinishing())
 			previousOne = new WeakReference<Activity>(this);
         anywheresoftware.b4a.Msgbox.isDismissing = false;
@@ -341,6 +348,7 @@ public cepave.geovin.frmfotos _frmfotos = null;
 public cepave.geovin.utilidades _utilidades = null;
 public cepave.geovin.dbutils _dbutils = null;
 public cepave.geovin.starter _starter = null;
+public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.firebasemessaging _firebasemessaging = null;
 public cepave.geovin.frmabout _frmabout = null;
 public cepave.geovin.frmaprender_chagas _frmaprender_chagas = null;
@@ -350,7 +358,6 @@ public cepave.geovin.frmdatosanteriores _frmdatosanteriores = null;
 public cepave.geovin.frmeditprofile _frmeditprofile = null;
 public cepave.geovin.frmespecies _frmespecies = null;
 public cepave.geovin.frmidentificacionnew _frmidentificacionnew = null;
-public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.frmlogin _frmlogin = null;
 public cepave.geovin.frmpoliticadatos _frmpoliticadatos = null;
 public cepave.geovin.frmrecomendaciones _frmrecomendaciones = null;
@@ -578,7 +585,7 @@ String _action = "";
 anywheresoftware.b4a.objects.collections.JSONParser _parser = null;
  //BA.debugLineNum = 132;BA.debugLine="Sub RegisterUser_Complete(Job As HttpJob)";
  //BA.debugLineNum = 133;BA.debugLine="Log(\"Register user: \" & Job.Success)";
-anywheresoftware.b4a.keywords.Common.LogImpl("529229057","Register user: "+BA.ObjectToString(_job._success /*boolean*/ ),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("228049409","Register user: "+BA.ObjectToString(_job._success /*boolean*/ ),0);
  //BA.debugLineNum = 134;BA.debugLine="If Job.Success = True Then";
 if (_job._success /*boolean*/ ==anywheresoftware.b4a.keywords.Common.True) { 
  //BA.debugLineNum = 135;BA.debugLine="Dim res As String, action As String";

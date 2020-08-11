@@ -22,6 +22,7 @@ public cepave.geovin.downloadservice _downloadservice = null;
 public cepave.geovin.frmfotos _frmfotos = null;
 public cepave.geovin.utilidades _utilidades = null;
 public cepave.geovin.starter _starter = null;
+public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.firebasemessaging _firebasemessaging = null;
 public cepave.geovin.frmabout _frmabout = null;
 public cepave.geovin.frmaprender_chagas _frmaprender_chagas = null;
@@ -31,7 +32,6 @@ public cepave.geovin.frmdatosanteriores _frmdatosanteriores = null;
 public cepave.geovin.frmeditprofile _frmeditprofile = null;
 public cepave.geovin.frmespecies _frmespecies = null;
 public cepave.geovin.frmidentificacionnew _frmidentificacionnew = null;
-public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.frmlogin _frmlogin = null;
 public cepave.geovin.frmpoliticadatos _frmpoliticadatos = null;
 public cepave.geovin.frmrecomendaciones _frmrecomendaciones = null;
@@ -95,7 +95,7 @@ _sb.Append(")");
  //BA.debugLineNum = 106;BA.debugLine="Dim query As String = \"CREATE TABLE IF NOT EXISTS";
 _query = "CREATE TABLE IF NOT EXISTS "+_escapefield(_ba,_tablename)+" "+_sb.ToString();
  //BA.debugLineNum = 107;BA.debugLine="Log(\"CreateTable: \" & query)";
-anywheresoftware.b4a.keywords.Common.LogImpl("59240590","CreateTable: "+_query,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("27667726","CreateTable: "+_query,0);
  //BA.debugLineNum = 108;BA.debugLine="SQL.ExecNonQuery(query)";
 _sql.ExecNonQuery(_query);
  //BA.debugLineNum = 109;BA.debugLine="End Sub";
@@ -115,7 +115,7 @@ _sb.Append("DELETE FROM "+_escapefield(_ba,_tablename)+" WHERE ");
  //BA.debugLineNum = 470;BA.debugLine="If WhereFieldEquals.Size = 0 Then";
 if (_wherefieldequals.getSize()==0) { 
  //BA.debugLineNum = 471;BA.debugLine="Log(\"WhereFieldEquals map empty!\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("510223621","WhereFieldEquals map empty!",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("28650757","WhereFieldEquals map empty!",0);
  //BA.debugLineNum = 472;BA.debugLine="Return";
 if (true) return "";
  };
@@ -141,7 +141,7 @@ _args.Add(_wherefieldequals.Get((Object)(_col)));
  }
 };
  //BA.debugLineNum = 481;BA.debugLine="Log(\"DeleteRecord: \" & sb.ToString)";
-anywheresoftware.b4a.keywords.Common.LogImpl("510223631","DeleteRecord: "+_sb.ToString(),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("28650767","DeleteRecord: "+_sb.ToString(),0);
  //BA.debugLineNum = 482;BA.debugLine="SQL.ExecNonQuery2(sb.ToString, args)";
 _sql.ExecNonQuery2(_sb.ToString(),_args);
  //BA.debugLineNum = 483;BA.debugLine="End Sub";
@@ -153,7 +153,7 @@ String _query = "";
  //BA.debugLineNum = 114;BA.debugLine="Dim query As String = \"DROP TABLE IF EXISTS\" & Es";
 _query = "DROP TABLE IF EXISTS"+_escapefield(_ba,_tablename);
  //BA.debugLineNum = 115;BA.debugLine="Log(\"DropTable: \" & query)";
-anywheresoftware.b4a.keywords.Common.LogImpl("59306114","DropTable: "+_query,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("27733250","DropTable: "+_query,0);
  //BA.debugLineNum = 116;BA.debugLine="SQL.ExecNonQuery(query)";
 _sql.ExecNonQuery(_query);
  //BA.debugLineNum = 117;BA.debugLine="End Sub";
@@ -177,13 +177,13 @@ _cur = new anywheresoftware.b4a.sql.SQL.ResultSetWrapper();
  //BA.debugLineNum = 345;BA.debugLine="If StringArgs <> Null Then";
 if (_stringargs!= null) { 
  //BA.debugLineNum = 346;BA.debugLine="cur = SQL.ExecQuery2(Query, StringArgs)";
-_cur.setObject((android.database.Cursor)(_sql.ExecQuery2(_query,_stringargs)));
+_cur = (anywheresoftware.b4a.sql.SQL.ResultSetWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.sql.SQL.ResultSetWrapper(), (android.database.Cursor)(_sql.ExecQuery2(_query,_stringargs)));
  }else {
  //BA.debugLineNum = 348;BA.debugLine="cur = SQL.ExecQuery(Query)";
-_cur.setObject((android.database.Cursor)(_sql.ExecQuery(_query)));
+_cur = (anywheresoftware.b4a.sql.SQL.ResultSetWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.sql.SQL.ResultSetWrapper(), (android.database.Cursor)(_sql.ExecQuery(_query)));
  };
  //BA.debugLineNum = 350;BA.debugLine="Log(\"ExecuteHtml: \" & Query)";
-anywheresoftware.b4a.keywords.Common.LogImpl("59895943","ExecuteHtml: "+_query,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("28323079","ExecuteHtml: "+_query,0);
  //BA.debugLineNum = 352;BA.debugLine="Dim sb As StringBuilder";
 _sb = new anywheresoftware.b4a.keywords.StringBuilderWrapper();
  //BA.debugLineNum = 353;BA.debugLine="sb.Initialize";
@@ -273,13 +273,13 @@ _cur = new anywheresoftware.b4a.sql.SQL.ResultSetWrapper();
  //BA.debugLineNum = 308;BA.debugLine="If StringArgs <> Null Then";
 if (_stringargs!= null) { 
  //BA.debugLineNum = 309;BA.debugLine="cur = SQL.ExecQuery2(Query, StringArgs)";
-_cur.setObject((android.database.Cursor)(_sql.ExecQuery2(_query,_stringargs)));
+_cur = (anywheresoftware.b4a.sql.SQL.ResultSetWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.sql.SQL.ResultSetWrapper(), (android.database.Cursor)(_sql.ExecQuery2(_query,_stringargs)));
  }else {
  //BA.debugLineNum = 311;BA.debugLine="cur = SQL.ExecQuery(Query)";
-_cur.setObject((android.database.Cursor)(_sql.ExecQuery(_query)));
+_cur = (anywheresoftware.b4a.sql.SQL.ResultSetWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.sql.SQL.ResultSetWrapper(), (android.database.Cursor)(_sql.ExecQuery(_query)));
  };
  //BA.debugLineNum = 313;BA.debugLine="Log(\"ExecuteJSON: \" & Query)";
-anywheresoftware.b4a.keywords.Common.LogImpl("59830408","ExecuteJSON: "+_query,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("28257544","ExecuteJSON: "+_query,0);
  //BA.debugLineNum = 314;BA.debugLine="Dim table As List";
 _table = new anywheresoftware.b4a.objects.collections.List();
  //BA.debugLineNum = 315;BA.debugLine="table.Initialize";
@@ -312,7 +312,7 @@ _m.Put((Object)(_cur.GetColumnName(_i)),(Object)(_cur.GetDouble2(_i)));
  break; }
 default: {
  //BA.debugLineNum = 328;BA.debugLine="Log(\"Invalid type: \" & DBTypes.Get(i))";
-anywheresoftware.b4a.keywords.Common.LogImpl("59830423","Invalid type: "+BA.ObjectToString(_dbtypes.Get(_i)),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("28257559","Invalid type: "+BA.ObjectToString(_dbtypes.Get(_i)),0);
  break; }
 }
 ;
@@ -390,7 +390,7 @@ if (_limit<1) {
 _limittext = "";
  };
  //BA.debugLineNum = 517;BA.debugLine="rs=SQL.ExecQuery2(Query & LimitText,StringArgs)";
-_rs.setObject((android.database.Cursor)(_sql.ExecQuery2(_query+_limittext,_stringargs)));
+_rs = (anywheresoftware.b4a.sql.SQL.ResultSetWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.sql.SQL.ResultSetWrapper(), (android.database.Cursor)(_sql.ExecQuery2(_query+_limittext,_stringargs)));
  //BA.debugLineNum = 518;BA.debugLine="Return ResultSetToListOfMaps(rs)";
 if (true) return _resultsettolistofmaps(_ba,_rs);
  //BA.debugLineNum = 519;BA.debugLine="End Sub";
@@ -443,17 +443,17 @@ _cur = new anywheresoftware.b4a.sql.SQL.ResultSetWrapper();
  //BA.debugLineNum = 201;BA.debugLine="If StringArgs <> Null Then";
 if (_stringargs!= null) { 
  //BA.debugLineNum = 202;BA.debugLine="cur = SQL.ExecQuery2(Query, StringArgs)";
-_cur.setObject((android.database.Cursor)(_sql.ExecQuery2(_query,_stringargs)));
+_cur = (anywheresoftware.b4a.sql.SQL.ResultSetWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.sql.SQL.ResultSetWrapper(), (android.database.Cursor)(_sql.ExecQuery2(_query,_stringargs)));
  }else {
  //BA.debugLineNum = 204;BA.debugLine="cur = SQL.ExecQuery(Query)";
-_cur.setObject((android.database.Cursor)(_sql.ExecQuery(_query)));
+_cur = (anywheresoftware.b4a.sql.SQL.ResultSetWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.sql.SQL.ResultSetWrapper(), (android.database.Cursor)(_sql.ExecQuery(_query)));
  };
  //BA.debugLineNum = 206;BA.debugLine="Log(\"ExecuteMap: \" & Query)";
-anywheresoftware.b4a.keywords.Common.LogImpl("59502728","ExecuteMap: "+_query,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("27929864","ExecuteMap: "+_query,0);
  //BA.debugLineNum = 207;BA.debugLine="If cur.NextRow = False Then";
 if (_cur.NextRow()==anywheresoftware.b4a.keywords.Common.False) { 
  //BA.debugLineNum = 208;BA.debugLine="Log(\"No records found.\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("59502730","No records found.",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("27929866","No records found.",0);
  //BA.debugLineNum = 209;BA.debugLine="Return res";
 if (true) return _res;
  };
@@ -491,9 +491,9 @@ _stringargs = new String[(int) (0)];
 java.util.Arrays.fill(_stringargs,"");
  };
  //BA.debugLineNum = 178;BA.debugLine="cur = SQL.ExecQuery2(Query, StringArgs)";
-_cur.setObject((android.database.Cursor)(_sql.ExecQuery2(_query,_stringargs)));
+_cur = (anywheresoftware.b4a.sql.SQL.ResultSetWrapper) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.sql.SQL.ResultSetWrapper(), (android.database.Cursor)(_sql.ExecQuery2(_query,_stringargs)));
  //BA.debugLineNum = 179;BA.debugLine="Log(\"ExecuteMemoryTable: \" & Query)";
-anywheresoftware.b4a.keywords.Common.LogImpl("59437190","ExecuteMemoryTable: "+_query,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("27864326","ExecuteMemoryTable: "+_query,0);
  //BA.debugLineNum = 180;BA.debugLine="Dim table As List";
 _table = new anywheresoftware.b4a.objects.collections.List();
  //BA.debugLineNum = 181;BA.debugLine="table.Initialize";
@@ -612,7 +612,7 @@ _values = new anywheresoftware.b4a.keywords.StringBuilderWrapper();
  //BA.debugLineNum = 126;BA.debugLine="If ListOfMaps.Size > 1 And ListOfMaps.Get(0) = Li";
 if (_listofmaps.getSize()>1 && (_listofmaps.Get((int) (0))).equals(_listofmaps.Get((int) (1)))) { 
  //BA.debugLineNum = 127;BA.debugLine="Log(\"Same Map found twice in list. Each item in";
-anywheresoftware.b4a.keywords.Common.LogImpl("59371652","Same Map found twice in list. Each item in the list should include a different map object.",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("27798788","Same Map found twice in list. Each item in the list should include a different map object.",0);
  //BA.debugLineNum = 128;BA.debugLine="Return";
 if (true) return "";
  };
@@ -639,7 +639,7 @@ _listofvalues.Initialize();
 _sb.Append("INSERT INTO ["+_tablename+"] (");
  //BA.debugLineNum = 139;BA.debugLine="Dim m As Map = ListOfMaps.Get(i1)";
 _m = new anywheresoftware.b4a.objects.collections.Map();
-_m.setObject((anywheresoftware.b4a.objects.collections.Map.MyMap)(_listofmaps.Get(_i1)));
+_m = (anywheresoftware.b4a.objects.collections.Map) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4a.objects.collections.Map(), (anywheresoftware.b4a.objects.collections.Map.MyMap)(_listofmaps.Get(_i1)));
  //BA.debugLineNum = 140;BA.debugLine="For Each col As String In m.Keys";
 {
 final anywheresoftware.b4a.BA.IterableList group16 = _m.Keys();
@@ -669,7 +669,7 @@ _listofvalues.Add(_value);
 _sb.Append(_columns.ToString()).Append(") VALUES (").Append(_values.ToString()).Append(")");
  //BA.debugLineNum = 151;BA.debugLine="If i1 = 0 Then Log(\"InsertMaps (first query out";
 if (_i1==0) { 
-anywheresoftware.b4a.keywords.Common.LogImpl("59371676","InsertMaps (first query out of "+BA.NumberToString(_listofmaps.getSize())+"): "+_sb.ToString(),0);};
+anywheresoftware.b4a.keywords.Common.LogImpl("27798812","InsertMaps (first query out of "+BA.NumberToString(_listofmaps.getSize())+"): "+_sb.ToString(),0);};
  //BA.debugLineNum = 152;BA.debugLine="SQL.ExecNonQuery2(sb.ToString, listOfValues)";
 _sql.ExecNonQuery2(_sb.ToString(),_listofvalues);
  }
@@ -679,7 +679,7 @@ _sql.TransactionSuccessful();
  } 
        catch (Exception e32) {
 			(_ba.processBA == null ? _ba : _ba.processBA).setLastException(e32); //BA.debugLineNum = 156;BA.debugLine="Log(LastException)";
-anywheresoftware.b4a.keywords.Common.LogImpl("59371681",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(_ba)),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("27798817",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(_ba)),0);
  };
  //BA.debugLineNum = 162;BA.debugLine="SQL.EndTransaction";
 _sql.EndTransaction();
@@ -774,14 +774,14 @@ String _col = "";
  //BA.debugLineNum = 434;BA.debugLine="If WhereFieldEquals.Size = 0 Then";
 if (_wherefieldequals.getSize()==0) { 
  //BA.debugLineNum = 435;BA.debugLine="Log(\"WhereFieldEquals map empty!\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("510158082","WhereFieldEquals map empty!",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("28585218","WhereFieldEquals map empty!",0);
  //BA.debugLineNum = 436;BA.debugLine="Return";
 if (true) return "";
  };
  //BA.debugLineNum = 438;BA.debugLine="If Fields.Size = 0 Then";
 if (_fields.getSize()==0) { 
  //BA.debugLineNum = 439;BA.debugLine="Log(\"Fields empty\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("510158086","Fields empty",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("28585222","Fields empty",0);
  //BA.debugLineNum = 440;BA.debugLine="Return";
 if (true) return "";
  };
@@ -834,7 +834,7 @@ _args.Add(_wherefieldequals.Get((Object)(_col)));
  //BA.debugLineNum = 459;BA.debugLine="sb.Remove(sb.Length - \" AND \".Length, sb.Length)";
 _sb.Remove((int) (_sb.getLength()-" AND ".length()),_sb.getLength());
  //BA.debugLineNum = 460;BA.debugLine="Log(\"UpdateRecord: \" & sb.ToString)";
-anywheresoftware.b4a.keywords.Common.LogImpl("510158107","UpdateRecord: "+_sb.ToString(),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("28585243","UpdateRecord: "+_sb.ToString(),0);
  //BA.debugLineNum = 461;BA.debugLine="SQL.ExecNonQuery2(sb.ToString, args)";
 _sql.ExecNonQuery2(_sb.ToString(),_args);
  //BA.debugLineNum = 462;BA.debugLine="End Sub";

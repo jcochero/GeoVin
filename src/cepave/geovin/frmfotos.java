@@ -27,6 +27,7 @@ public class frmfotos extends Activity implements B4AActivity{
 	public static final boolean fullScreen = false;
 	public static final boolean includeTitle = false;
     public static WeakReference<Activity> previousOne;
+    public static boolean dontPause;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -266,11 +267,17 @@ public class frmfotos extends Activity implements B4AActivity{
         if (this != mostCurrent)
 			return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
-        BA.LogInfo("** Activity (frmfotos) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        if (!dontPause)
+            BA.LogInfo("** Activity (frmfotos) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        else
+            BA.LogInfo("** Activity (frmfotos) Pause event (activity is not paused). **");
         if (mostCurrent != null)
             processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
-        processBA.setActivityPaused(true);
-        mostCurrent = null;
+        if (!dontPause) {
+            processBA.setActivityPaused(true);
+            mostCurrent = null;
+        }
+
         if (!activityBA.activity.isFinishing())
 			previousOne = new WeakReference<Activity>(this);
         anywheresoftware.b4a.Msgbox.isDismissing = false;
@@ -378,6 +385,7 @@ public cepave.geovin.downloadservice _downloadservice = null;
 public cepave.geovin.utilidades _utilidades = null;
 public cepave.geovin.dbutils _dbutils = null;
 public cepave.geovin.starter _starter = null;
+public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.firebasemessaging _firebasemessaging = null;
 public cepave.geovin.frmabout _frmabout = null;
 public cepave.geovin.frmaprender_chagas _frmaprender_chagas = null;
@@ -387,7 +395,6 @@ public cepave.geovin.frmdatosanteriores _frmdatosanteriores = null;
 public cepave.geovin.frmeditprofile _frmeditprofile = null;
 public cepave.geovin.frmespecies _frmespecies = null;
 public cepave.geovin.frmidentificacionnew _frmidentificacionnew = null;
-public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.frmlogin _frmlogin = null;
 public cepave.geovin.frmpoliticadatos _frmpoliticadatos = null;
 public cepave.geovin.frmrecomendaciones _frmrecomendaciones = null;
@@ -706,7 +713,7 @@ mostCurrent._btncontinuar.setText(BA.ObjectToCharSequence("Uploading (cancel upl
 mostCurrent._lblinstrucciones.setText(BA.ObjectToCharSequence("Uploading... please wait"));
  };
  //BA.debugLineNum = 615;BA.debugLine="Log(\"Chequeando internet\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57733353","Chequeando internet",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26160489","Chequeando internet",0);
  //BA.debugLineNum = 616;BA.debugLine="CheckInternet";
 _checkinternet();
  //BA.debugLineNum = 618;BA.debugLine="End Sub";
@@ -979,7 +986,7 @@ _deviceid = mostCurrent._utilidades._getdeviceid /*String*/ (mostCurrent.activit
  };
  };
  //BA.debugLineNum = 714;BA.debugLine="Log(\"Comienza envio de datos\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57929915","Comienza envio de datos",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26357051","Comienza envio de datos",0);
  //BA.debugLineNum = 717;BA.debugLine="Dim dd As DownloadData";
 _dd = new cepave.geovin.downloadservice._downloaddata();
  //BA.debugLineNum = 718;BA.debugLine="Dim usernameTemp As String";
@@ -1012,7 +1019,7 @@ String _serverid = "";
 anywheresoftware.b4a.objects.collections.Map _map1 = null;
  //BA.debugLineNum = 740;BA.debugLine="Sub EnviarDatos_Complete(Job As HttpJob)";
  //BA.debugLineNum = 741;BA.debugLine="Log(\"Datos enviados : \" & Job.Success)";
-anywheresoftware.b4a.keywords.Common.LogImpl("57995393","Datos enviados : "+BA.ObjectToString(_job._success /*boolean*/ ),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26422529","Datos enviados : "+BA.ObjectToString(_job._success /*boolean*/ ),0);
  //BA.debugLineNum = 742;BA.debugLine="If Job.Success = True Then";
 if (_job._success /*boolean*/ ==anywheresoftware.b4a.keywords.Common.True) { 
  //BA.debugLineNum = 743;BA.debugLine="Dim ret As String";
@@ -1081,7 +1088,7 @@ _enviarfotos();
  };
  }else {
  //BA.debugLineNum = 784;BA.debugLine="Log(\"envio datos not ok\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57995436","envio datos not ok",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26422572","envio datos not ok",0);
  //BA.debugLineNum = 785;BA.debugLine="If Main.lang = \"es\" Then";
 if ((mostCurrent._main._lang /*String*/ ).equals("es")) { 
  //BA.debugLineNum = 786;BA.debugLine="Msgbox(\"Al parecer hay un problema en nuestros";
@@ -1135,7 +1142,7 @@ _up2.Initialize(processBA,"Up1");
  //BA.debugLineNum = 824;BA.debugLine="If File.Exists(File.DirRootExternal & \"/GeoVin/\",";
 if (anywheresoftware.b4a.keywords.Common.File.Exists(anywheresoftware.b4a.keywords.Common.File.getDirRootExternal()+"/GeoVin/",mostCurrent._foto1+".jpg") && _foto1sent==anywheresoftware.b4a.keywords.Common.False) { 
  //BA.debugLineNum = 825;BA.debugLine="Log(\"Enviando foto 1 \")";
-anywheresoftware.b4a.keywords.Common.LogImpl("58060954","Enviando foto 1 ",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26488090","Enviando foto 1 ",0);
  //BA.debugLineNum = 826;BA.debugLine="ProgressBar1.Visible = True";
 mostCurrent._progressbar1.setVisible(anywheresoftware.b4a.keywords.Common.True);
  //BA.debugLineNum = 829;BA.debugLine="Up1.doFileUpload(ProgressBar1,Null,File.DirRootE";
@@ -1150,12 +1157,12 @@ mostCurrent._textopcion1.setText(BA.ObjectToCharSequence("Uploading photo..."));
  };
  }else {
  //BA.debugLineNum = 836;BA.debugLine="Log(\"no foto 1\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("58060965","no foto 1",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26488101","no foto 1",0);
  };
  //BA.debugLineNum = 839;BA.debugLine="If File.Exists(File.DirRootExternal & \"/GeoVin/\",";
 if (anywheresoftware.b4a.keywords.Common.File.Exists(anywheresoftware.b4a.keywords.Common.File.getDirRootExternal()+"/GeoVin/",mostCurrent._foto2+".jpg") && _foto2sent==anywheresoftware.b4a.keywords.Common.False) { 
  //BA.debugLineNum = 840;BA.debugLine="Log(\"Enviando foto 2 \")";
-anywheresoftware.b4a.keywords.Common.LogImpl("58060969","Enviando foto 2 ",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26488105","Enviando foto 2 ",0);
  //BA.debugLineNum = 841;BA.debugLine="ProgressBar2.Visible = True";
 mostCurrent._progressbar2.setVisible(anywheresoftware.b4a.keywords.Common.True);
  //BA.debugLineNum = 842;BA.debugLine="Up2.doFileUpload(ProgressBar2,Null,File.DirRootE";
@@ -1170,7 +1177,7 @@ mostCurrent._textopcion2.setText(BA.ObjectToCharSequence("Uploading photo..."));
  };
  }else {
  //BA.debugLineNum = 850;BA.debugLine="Log(\"no foto 2\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("58060979","no foto 2",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26488115","no foto 2",0);
  };
  //BA.debugLineNum = 852;BA.debugLine="End Sub";
 return "";
@@ -1274,11 +1281,11 @@ return "";
 public static String  _previewfotos() throws Exception{
  //BA.debugLineNum = 451;BA.debugLine="Sub PreviewFotos";
  //BA.debugLineNum = 452;BA.debugLine="Log(Main.fotopath0)";
-anywheresoftware.b4a.keywords.Common.LogImpl("57602177",mostCurrent._main._fotopath0 /*String*/ ,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26029313",mostCurrent._main._fotopath0 /*String*/ ,0);
  //BA.debugLineNum = 453;BA.debugLine="Log(Main.fotopath1)";
-anywheresoftware.b4a.keywords.Common.LogImpl("57602178",mostCurrent._main._fotopath1 /*String*/ ,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26029314",mostCurrent._main._fotopath1 /*String*/ ,0);
  //BA.debugLineNum = 454;BA.debugLine="Log(Main.fotopath3)";
-anywheresoftware.b4a.keywords.Common.LogImpl("57602179",mostCurrent._main._fotopath3 /*String*/ ,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26029315",mostCurrent._main._fotopath3 /*String*/ ,0);
  //BA.debugLineNum = 457;BA.debugLine="If currentFoto = \"dorsal\" Then";
 if ((_currentfoto).equals("dorsal")) { 
  //BA.debugLineNum = 458;BA.debugLine="If Main.fotopath0 <> \"\" Then";
@@ -1353,7 +1360,7 @@ anywheresoftware.b4a.agraham.dialogs.InputDialog _inputmsg = null;
  //BA.debugLineNum = 229;BA.debugLine="If Position = 1 Then";
 if (_position==1) { 
  //BA.debugLineNum = 230;BA.debugLine="Log(\"domicilio1\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57405570","domicilio1",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25832706","domicilio1",0);
  //BA.debugLineNum = 231;BA.debugLine="Main.fotopath3 = \"habitat_dormitorio\"";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_dormitorio";
  //BA.debugLineNum = 232;BA.debugLine="If Main.lang = \"es\" Then";
@@ -1366,7 +1373,7 @@ mostCurrent._textopcion3.setText(BA.ObjectToCharSequence("Bedroom"));
  };
  }else if(_position==2) { 
  //BA.debugLineNum = 238;BA.debugLine="Log(\"domicilio2\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57405578","domicilio2",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25832714","domicilio2",0);
  //BA.debugLineNum = 239;BA.debugLine="Main.fotopath3 = \"habitat_cocina\"";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_cocina";
  //BA.debugLineNum = 240;BA.debugLine="If Main.lang = \"es\" Then";
@@ -1379,7 +1386,7 @@ mostCurrent._textopcion3.setText(BA.ObjectToCharSequence("Kitchen"));
  };
  }else if(_position==3) { 
  //BA.debugLineNum = 246;BA.debugLine="Log(\"domicilio3\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57405586","domicilio3",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25832722","domicilio3",0);
  //BA.debugLineNum = 247;BA.debugLine="Main.fotopath3 = \"habitat_galeria\"";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_galeria";
  //BA.debugLineNum = 248;BA.debugLine="If Main.lang = \"es\" Then";
@@ -1392,7 +1399,7 @@ mostCurrent._textopcion3.setText(BA.ObjectToCharSequence("Gallery"));
  };
  }else if(_position==4) { 
  //BA.debugLineNum = 254;BA.debugLine="Log(\"domicilio4\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57405594","domicilio4",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25832730","domicilio4",0);
  //BA.debugLineNum = 255;BA.debugLine="Dim inputmsg As InputDialog";
 _inputmsg = new anywheresoftware.b4a.agraham.dialogs.InputDialog();
  //BA.debugLineNum = 256;BA.debugLine="If Main.lang = \"es\" Then";
@@ -1405,7 +1412,7 @@ if (true) return "";
  //BA.debugLineNum = 260;BA.debugLine="Main.fotopath3 = \"habitat_domicilio_\" & inputm";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_domicilio_"+_inputmsg.getInput();
  //BA.debugLineNum = 261;BA.debugLine="Log(Main.fotopath3)";
-anywheresoftware.b4a.keywords.Common.LogImpl("57405601",mostCurrent._main._fotopath3 /*String*/ ,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25832737",mostCurrent._main._fotopath3 /*String*/ ,0);
  //BA.debugLineNum = 262;BA.debugLine="textOpcion3.Text = inputmsg.Input";
 mostCurrent._textopcion3.setText(BA.ObjectToCharSequence(_inputmsg.getInput()));
  };
@@ -1418,13 +1425,13 @@ if (true) return "";
  //BA.debugLineNum = 268;BA.debugLine="Main.fotopath3 = \"habitat_domicilio_\" & inputm";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_domicilio_"+_inputmsg.getInput();
  //BA.debugLineNum = 269;BA.debugLine="Log(Main.fotopath3)";
-anywheresoftware.b4a.keywords.Common.LogImpl("57405609",mostCurrent._main._fotopath3 /*String*/ ,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25832745",mostCurrent._main._fotopath3 /*String*/ ,0);
  //BA.debugLineNum = 270;BA.debugLine="textOpcion3.Text = inputmsg.Input";
 mostCurrent._textopcion3.setText(BA.ObjectToCharSequence(_inputmsg.getInput()));
  };
  };
  //BA.debugLineNum = 273;BA.debugLine="Log(\"domicilio4\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57405613","domicilio4",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25832749","domicilio4",0);
  };
  //BA.debugLineNum = 276;BA.debugLine="If Position <> 0 Then";
 if (_position!=0) { 
@@ -1470,7 +1477,7 @@ anywheresoftware.b4a.agraham.dialogs.InputDialog _inputmsg = null;
  //BA.debugLineNum = 296;BA.debugLine="If Position = 1 Then";
 if (_position==1) { 
  //BA.debugLineNum = 297;BA.debugLine="Log(\"peridomicilio1\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57471106","peridomicilio1",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25898242","peridomicilio1",0);
  //BA.debugLineNum = 298;BA.debugLine="Main.fotopath3 = \"habitat_corrales\"";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_corrales";
  //BA.debugLineNum = 299;BA.debugLine="If Main.lang = \"es\" Then";
@@ -1483,7 +1490,7 @@ mostCurrent._textopcion3.setText(BA.ObjectToCharSequence("Pens"));
  };
  }else if(_position==2) { 
  //BA.debugLineNum = 308;BA.debugLine="Log(\"peridomicilio2\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57471117","peridomicilio2",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25898253","peridomicilio2",0);
  //BA.debugLineNum = 309;BA.debugLine="Main.fotopath3 = \"habitat_gallinero\"";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_gallinero";
  //BA.debugLineNum = 310;BA.debugLine="If Main.lang = \"es\" Then";
@@ -1496,7 +1503,7 @@ mostCurrent._textopcion3.setText(BA.ObjectToCharSequence("Hen house"));
  };
  }else if(_position==3) { 
  //BA.debugLineNum = 319;BA.debugLine="Log(\"peridomicilio3\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57471128","peridomicilio3",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25898264","peridomicilio3",0);
  //BA.debugLineNum = 320;BA.debugLine="Main.fotopath3 = \"habitat_galpon\"";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_galpon";
  //BA.debugLineNum = 321;BA.debugLine="If Main.lang = \"es\" Then";
@@ -1509,7 +1516,7 @@ mostCurrent._textopcion3.setText(BA.ObjectToCharSequence("Shed"));
  };
  }else if(_position==4) { 
  //BA.debugLineNum = 330;BA.debugLine="Log(\"peridomicilio4\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57471139","peridomicilio4",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25898275","peridomicilio4",0);
  //BA.debugLineNum = 331;BA.debugLine="Dim inputmsg As InputDialog";
 _inputmsg = new anywheresoftware.b4a.agraham.dialogs.InputDialog();
  //BA.debugLineNum = 332;BA.debugLine="If Main.lang = \"es\" Then";
@@ -1522,7 +1529,7 @@ if (true) return "";
  //BA.debugLineNum = 336;BA.debugLine="Main.fotopath3 = \"habitat_peridomicilio_\" & in";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_peridomicilio_"+_inputmsg.getInput();
  //BA.debugLineNum = 337;BA.debugLine="Log(Main.fotopath3)";
-anywheresoftware.b4a.keywords.Common.LogImpl("57471146",mostCurrent._main._fotopath3 /*String*/ ,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25898282",mostCurrent._main._fotopath3 /*String*/ ,0);
  //BA.debugLineNum = 338;BA.debugLine="textOpcion3.Text = inputmsg.Input";
 mostCurrent._textopcion3.setText(BA.ObjectToCharSequence(_inputmsg.getInput()));
  };
@@ -1535,13 +1542,13 @@ if (true) return "";
  //BA.debugLineNum = 344;BA.debugLine="Main.fotopath3 = \"habitat_peridomicilio_\" & in";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_peridomicilio_"+_inputmsg.getInput();
  //BA.debugLineNum = 345;BA.debugLine="Log(Main.fotopath3)";
-anywheresoftware.b4a.keywords.Common.LogImpl("57471154",mostCurrent._main._fotopath3 /*String*/ ,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25898290",mostCurrent._main._fotopath3 /*String*/ ,0);
  //BA.debugLineNum = 346;BA.debugLine="textOpcion3.Text = inputmsg.Input";
 mostCurrent._textopcion3.setText(BA.ObjectToCharSequence(_inputmsg.getInput()));
  };
  };
  //BA.debugLineNum = 352;BA.debugLine="Log(\"peridomicilio4\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57471161","peridomicilio4",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25898297","peridomicilio4",0);
  };
  //BA.debugLineNum = 355;BA.debugLine="If Position <> 0 Then";
 if (_position!=0) { 
@@ -1585,7 +1592,7 @@ anywheresoftware.b4a.agraham.dialogs.InputDialog _inputmsg = null;
  //BA.debugLineNum = 375;BA.debugLine="If Position = 1 Then";
 if (_position==1) { 
  //BA.debugLineNum = 376;BA.debugLine="Log(\"silvestre1\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57536642","silvestre1",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25963778","silvestre1",0);
  //BA.debugLineNum = 377;BA.debugLine="Main.fotopath3 = \"habitat_arboles\"";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_arboles";
  //BA.debugLineNum = 378;BA.debugLine="If Main.lang = \"es\" Then";
@@ -1598,7 +1605,7 @@ mostCurrent._textopcion3.setText(BA.ObjectToCharSequence("Trees"));
  };
  }else if(_position==2) { 
  //BA.debugLineNum = 387;BA.debugLine="Log(\"silvestre2\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57536653","silvestre2",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25963789","silvestre2",0);
  //BA.debugLineNum = 388;BA.debugLine="Main.fotopath3 = \"habitat_nidos\"";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_nidos";
  //BA.debugLineNum = 389;BA.debugLine="If Main.lang = \"es\" Then";
@@ -1611,7 +1618,7 @@ mostCurrent._textopcion3.setText(BA.ObjectToCharSequence("Bird nest"));
  };
  }else if(_position==3) { 
  //BA.debugLineNum = 398;BA.debugLine="Log(\"silvestre3\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57536664","silvestre3",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25963800","silvestre3",0);
  //BA.debugLineNum = 399;BA.debugLine="Main.fotopath3 = \"habitat_piedras\"";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_piedras";
  //BA.debugLineNum = 400;BA.debugLine="If Main.lang = \"es\" Then";
@@ -1624,7 +1631,7 @@ mostCurrent._textopcion3.setText(BA.ObjectToCharSequence("Rocks"));
  };
  }else if(_position==4) { 
  //BA.debugLineNum = 409;BA.debugLine="Log(\"silvestre4\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("57536675","silvestre4",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25963811","silvestre4",0);
  //BA.debugLineNum = 410;BA.debugLine="Dim inputmsg As InputDialog";
 _inputmsg = new anywheresoftware.b4a.agraham.dialogs.InputDialog();
  //BA.debugLineNum = 411;BA.debugLine="If Main.lang = \"es\" Then";
@@ -1637,7 +1644,7 @@ if (true) return "";
  //BA.debugLineNum = 415;BA.debugLine="Main.fotopath3 = \"habitat_silvestre_\" & inputm";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_silvestre_"+_inputmsg.getInput();
  //BA.debugLineNum = 416;BA.debugLine="Log(Main.fotopath3)";
-anywheresoftware.b4a.keywords.Common.LogImpl("57536682",mostCurrent._main._fotopath3 /*String*/ ,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25963818",mostCurrent._main._fotopath3 /*String*/ ,0);
  //BA.debugLineNum = 417;BA.debugLine="textOpcion3.Text = inputmsg.Input";
 mostCurrent._textopcion3.setText(BA.ObjectToCharSequence(_inputmsg.getInput()));
  };
@@ -1650,7 +1657,7 @@ if (true) return "";
  //BA.debugLineNum = 423;BA.debugLine="Main.fotopath3 = \"habitat_silvestre_\" & inputm";
 mostCurrent._main._fotopath3 /*String*/  = "habitat_silvestre_"+_inputmsg.getInput();
  //BA.debugLineNum = 424;BA.debugLine="Log(Main.fotopath3)";
-anywheresoftware.b4a.keywords.Common.LogImpl("57536690",mostCurrent._main._fotopath3 /*String*/ ,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("25963826",mostCurrent._main._fotopath3 /*String*/ ,0);
  //BA.debugLineNum = 425;BA.debugLine="textOpcion3.Text = inputmsg.Input";
 mostCurrent._textopcion3.setText(BA.ObjectToCharSequence(_inputmsg.getInput()));
  };
@@ -1695,7 +1702,7 @@ return "";
 public static String  _testinternet_complete(cepave.geovin.httpjob _job) throws Exception{
  //BA.debugLineNum = 631;BA.debugLine="Sub TestInternet_Complete(Job As HttpJob)";
  //BA.debugLineNum = 632;BA.debugLine="Log(\"Chequeo de internet: \" & Job.Success)";
-anywheresoftware.b4a.keywords.Common.LogImpl("57864321","Chequeo de internet: "+BA.ObjectToString(_job._success /*boolean*/ ),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26291457","Chequeo de internet: "+BA.ObjectToString(_job._success /*boolean*/ ),0);
  //BA.debugLineNum = 633;BA.debugLine="If Job.Success = True Then";
 if (_job._success /*boolean*/ ==anywheresoftware.b4a.keywords.Common.True) { 
  //BA.debugLineNum = 635;BA.debugLine="Main.modooffline = False";
@@ -1733,7 +1740,7 @@ anywheresoftware.b4a.objects.collections.Map _map1 = null;
  //BA.debugLineNum = 860;BA.debugLine="If fotosEnviadas = totalFotos Then";
 if (_fotosenviadas==_totalfotos) { 
  //BA.debugLineNum = 861;BA.debugLine="Log(\"TODAS LAS FOTOS FUERON ENVIADAS CORRECTAMEN";
-anywheresoftware.b4a.keywords.Common.LogImpl("58192002","TODAS LAS FOTOS FUERON ENVIADAS CORRECTAMENTE",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26619138","TODAS LAS FOTOS FUERON ENVIADAS CORRECTAMENTE",0);
  //BA.debugLineNum = 862;BA.debugLine="Up1.UploadKill";
 _up1.UploadKill(processBA);
  //BA.debugLineNum = 863;BA.debugLine="Up2.UploadKill";
@@ -1810,23 +1817,23 @@ return "";
 public static String  _up1_sendfile(String _value) throws Exception{
  //BA.debugLineNum = 892;BA.debugLine="Sub Up1_sendFile (value As String)";
  //BA.debugLineNum = 893;BA.debugLine="Log(\"sendfile event:\" & value)";
-anywheresoftware.b4a.keywords.Common.LogImpl("58323073","sendfile event:"+_value,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26750209","sendfile event:"+_value,0);
  //BA.debugLineNum = 894;BA.debugLine="If value = \"success\" Then";
 if ((_value).equals("success")) { 
  //BA.debugLineNum = 896;BA.debugLine="If foto1 <> \"null\" And ProgressBar1.IsInitialize";
 if ((mostCurrent._foto1).equals("null") == false && mostCurrent._progressbar1.IsInitialized() && mostCurrent._progressbar1.getProgress()==100) { 
  //BA.debugLineNum = 897;BA.debugLine="Log(\"TERMINO EL ENVIO FOTO 1\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("58323077","TERMINO EL ENVIO FOTO 1",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26750213","TERMINO EL ENVIO FOTO 1",0);
  //BA.debugLineNum = 898;BA.debugLine="foto1Sent = True";
 _foto1sent = anywheresoftware.b4a.keywords.Common.True;
  //BA.debugLineNum = 899;BA.debugLine="fotosEnviadas = fotosEnviadas+ 1";
 _fotosenviadas = (int) (_fotosenviadas+1);
  };
  //BA.debugLineNum = 901;BA.debugLine="Log(\"FOTO #\" & fotosEnviadas & \"/\" & totalFotos";
-anywheresoftware.b4a.keywords.Common.LogImpl("58323081","FOTO #"+BA.NumberToString(_fotosenviadas)+"/"+BA.NumberToString(_totalfotos)+" ENVIADA",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26750217","FOTO #"+BA.NumberToString(_fotosenviadas)+"/"+BA.NumberToString(_totalfotos)+" ENVIADA",0);
  }else if((_value).equals("Error!")) { 
  //BA.debugLineNum = 904;BA.debugLine="Log(\"FOTO error\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("58323084","FOTO error",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26750220","FOTO error",0);
  //BA.debugLineNum = 905;BA.debugLine="If Main.lang = \"es\" Then";
 if ((mostCurrent._main._lang /*String*/ ).equals("es")) { 
  //BA.debugLineNum = 906;BA.debugLine="Msgbox(\"Ha habido un error en el envío. Revisa";
@@ -1866,23 +1873,23 @@ return "";
 public static String  _up2_sendfile(String _value) throws Exception{
  //BA.debugLineNum = 927;BA.debugLine="Sub Up2_sendFile (value As String)";
  //BA.debugLineNum = 928;BA.debugLine="Log(\"sendfile event:\" & value)";
-anywheresoftware.b4a.keywords.Common.LogImpl("58519681","sendfile event:"+_value,0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26946817","sendfile event:"+_value,0);
  //BA.debugLineNum = 929;BA.debugLine="If value = \"success\" Then";
 if ((_value).equals("success")) { 
  //BA.debugLineNum = 931;BA.debugLine="If foto2 <> \"null\" And ProgressBar2.IsInitialize";
 if ((mostCurrent._foto2).equals("null") == false && mostCurrent._progressbar2.IsInitialized() && mostCurrent._progressbar2.getProgress()==100) { 
  //BA.debugLineNum = 932;BA.debugLine="Log(\"TERMINO EL ENVIO FOTO 2\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("58519685","TERMINO EL ENVIO FOTO 2",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26946821","TERMINO EL ENVIO FOTO 2",0);
  //BA.debugLineNum = 933;BA.debugLine="foto2Sent = True";
 _foto2sent = anywheresoftware.b4a.keywords.Common.True;
  //BA.debugLineNum = 934;BA.debugLine="fotosEnviadas = fotosEnviadas+ 1";
 _fotosenviadas = (int) (_fotosenviadas+1);
  };
  //BA.debugLineNum = 936;BA.debugLine="Log(\"FOTO #\" & fotosEnviadas & \"/\" & totalFotos";
-anywheresoftware.b4a.keywords.Common.LogImpl("58519689","FOTO #"+BA.NumberToString(_fotosenviadas)+"/"+BA.NumberToString(_totalfotos)+" ENVIADA",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26946825","FOTO #"+BA.NumberToString(_fotosenviadas)+"/"+BA.NumberToString(_totalfotos)+" ENVIADA",0);
  }else if((_value).equals("Error!")) { 
  //BA.debugLineNum = 938;BA.debugLine="Log(\"FOTO error\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("58519691","FOTO error",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("26946827","FOTO error",0);
  //BA.debugLineNum = 939;BA.debugLine="If Main.lang = \"es\" Then";
 if ((mostCurrent._main._lang /*String*/ ).equals("es")) { 
  //BA.debugLineNum = 940;BA.debugLine="Msgbox(\"Ha habido un error en el envío. Revisa";

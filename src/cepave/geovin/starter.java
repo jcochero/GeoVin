@@ -139,6 +139,7 @@ public cepave.geovin.downloadservice _downloadservice = null;
 public cepave.geovin.frmfotos _frmfotos = null;
 public cepave.geovin.utilidades _utilidades = null;
 public cepave.geovin.dbutils _dbutils = null;
+public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.firebasemessaging _firebasemessaging = null;
 public cepave.geovin.frmabout _frmabout = null;
 public cepave.geovin.frmaprender_chagas _frmaprender_chagas = null;
@@ -148,7 +149,6 @@ public cepave.geovin.frmdatosanteriores _frmdatosanteriores = null;
 public cepave.geovin.frmeditprofile _frmeditprofile = null;
 public cepave.geovin.frmespecies _frmespecies = null;
 public cepave.geovin.frmidentificacionnew _frmidentificacionnew = null;
-public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.frmlogin _frmlogin = null;
 public cepave.geovin.frmpoliticadatos _frmpoliticadatos = null;
 public cepave.geovin.frmrecomendaciones _frmrecomendaciones = null;
@@ -166,7 +166,7 @@ return false;
 public static String  _auth_signedin(anywheresoftware.b4a.objects.FirebaseAuthWrapper.FirebaseUserWrapper _user) throws Exception{
  //BA.debugLineNum = 58;BA.debugLine="Sub Auth_SignedIn (User As FirebaseUser)";
  //BA.debugLineNum = 62;BA.debugLine="Log(\"signed in with google!\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("510551300","signed in with google!",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("29371652","signed in with google!",0);
  //BA.debugLineNum = 63;BA.debugLine="Main.username = User.Email";
 mostCurrent._main._username /*String*/  = _user.getEmail();
  //BA.debugLineNum = 64;BA.debugLine="Main.strUserID = User.Email";
@@ -289,7 +289,7 @@ public static String  _updatefcmtoken() throws Exception{
  //BA.debugLineNum = 41;BA.debugLine="fm.SubscribeToTopic(\"general\") 'you can subscribe";
 _fm.SubscribeToTopic("general");
  //BA.debugLineNum = 42;BA.debugLine="Log (\"NewToken: \" & fm.Token)";
-anywheresoftware.b4a.keywords.Common.LogImpl("510485763","NewToken: "+_fm.getToken(),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("29109507","NewToken: "+_fm.getToken(),0);
  //BA.debugLineNum = 43;BA.debugLine="End Sub";
 return "";
 }

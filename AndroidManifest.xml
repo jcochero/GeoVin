@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="cepave.geovin"
-	android:versionCode="24"
-	android:versionName="28042020"
+	android:versionCode="25"
+	android:versionName="20072020"
 	android:installLocation="internalOnly">
 	
 	<uses-sdk android:minSdkVersion="9" android:targetSdkVersion="28"/>
@@ -276,6 +276,13 @@
 			<action android:name="android.intent.action.BOOT_COMPLETED"/>
 			</intent-filter>
 		</receiver>
+		<activity
+			android:windowSoftInputMode="stateHidden"
+			android:launchMode="singleTop"
+			android:name=".frmlocalizacion"
+			android:label="GeoVin"
+			android:screenOrientation="unspecified">
+		</activity>
 		<service android:name=".firebasemessaging">
 		</service>
 		<receiver android:name=".firebasemessaging$firebasemessaging_BR">
@@ -336,13 +343,6 @@
 			android:windowSoftInputMode="stateHidden"
 			android:launchMode="singleTop"
 			android:name=".frmidentificacionnew"
-			android:label="GeoVin"
-			android:screenOrientation="unspecified">
-		</activity>
-		<activity
-			android:windowSoftInputMode="stateHidden"
-			android:launchMode="singleTop"
-			android:name=".frmlocalizacion"
 			android:label="GeoVin"
 			android:screenOrientation="unspecified">
 		</activity>

@@ -27,6 +27,7 @@ public class frmlocalizacion extends Activity implements B4AActivity{
 	public static final boolean fullScreen = false;
 	public static final boolean includeTitle = false;
     public static WeakReference<Activity> previousOne;
+    public static boolean dontPause;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -266,11 +267,17 @@ public class frmlocalizacion extends Activity implements B4AActivity{
         if (this != mostCurrent)
 			return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
-        BA.LogInfo("** Activity (frmlocalizacion) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        if (!dontPause)
+            BA.LogInfo("** Activity (frmlocalizacion) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        else
+            BA.LogInfo("** Activity (frmlocalizacion) Pause event (activity is not paused). **");
         if (mostCurrent != null)
             processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
-        processBA.setActivityPaused(true);
-        mostCurrent = null;
+        if (!dontPause) {
+            processBA.setActivityPaused(true);
+            mostCurrent = null;
+        }
+
         if (!activityBA.activity.isFinishing())
 			previousOne = new WeakReference<Activity>(this);
         anywheresoftware.b4a.Msgbox.isDismissing = false;
@@ -451,68 +458,73 @@ anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Y
  };
  //BA.debugLineNum = 404;BA.debugLine="Return";
 if (true) return "";
+ }else {
+ //BA.debugLineNum = 406;BA.debugLine="latCoord = lblLat.Text";
+mostCurrent._latcoord = mostCurrent._lbllat.getText();
+ //BA.debugLineNum = 407;BA.debugLine="lngCoord = lblLon.Text";
+mostCurrent._lngcoord = mostCurrent._lbllon.getText();
  };
- //BA.debugLineNum = 408;BA.debugLine="If origen = \"cambio\" Then";
+ //BA.debugLineNum = 411;BA.debugLine="If origen = \"cambio\" Then";
 if ((_origen).equals("cambio")) { 
- //BA.debugLineNum = 409;BA.debugLine="frmDatosAnteriores.nuevalatlng = lblLat.Text & \"";
+ //BA.debugLineNum = 412;BA.debugLine="frmDatosAnteriores.nuevalatlng = lblLat.Text & \"";
 mostCurrent._frmdatosanteriores._nuevalatlng /*String*/  = mostCurrent._lbllat.getText()+"_"+mostCurrent._lbllon.getText();
- //BA.debugLineNum = 410;BA.debugLine="Activity.RemoveAllViews";
+ //BA.debugLineNum = 413;BA.debugLine="Activity.RemoveAllViews";
 mostCurrent._activity.RemoveAllViews();
- //BA.debugLineNum = 411;BA.debugLine="frmDatosAnteriores.notificacion = False";
+ //BA.debugLineNum = 414;BA.debugLine="frmDatosAnteriores.notificacion = False";
 mostCurrent._frmdatosanteriores._notificacion /*boolean*/  = anywheresoftware.b4a.keywords.Common.False;
- //BA.debugLineNum = 412;BA.debugLine="CallSubDelayed(frmDatosAnteriores, \"CambiarUbica";
+ //BA.debugLineNum = 415;BA.debugLine="CallSubDelayed(frmDatosAnteriores, \"CambiarUbica";
 anywheresoftware.b4a.keywords.Common.CallSubDelayed(processBA,(Object)(mostCurrent._frmdatosanteriores.getObject()),"CambiarUbicacion");
- //BA.debugLineNum = 414;BA.debugLine="Activity.Finish";
+ //BA.debugLineNum = 417;BA.debugLine="Activity.Finish";
 mostCurrent._activity.Finish();
- //BA.debugLineNum = 415;BA.debugLine="Return";
+ //BA.debugLineNum = 418;BA.debugLine="Return";
 if (true) return "";
  };
- //BA.debugLineNum = 421;BA.debugLine="If latCoord = \"\" Or lngCoord = \"\" Then";
+ //BA.debugLineNum = 423;BA.debugLine="If latCoord = \"\" Or lngCoord = \"\" Then";
 if ((mostCurrent._latcoord).equals("") || (mostCurrent._lngcoord).equals("")) { 
- //BA.debugLineNum = 422;BA.debugLine="If Main.lang = \"es\" Then";
+ //BA.debugLineNum = 424;BA.debugLine="If Main.lang = \"es\" Then";
 if ((mostCurrent._main._lang /*String*/ ).equals("es")) { 
- //BA.debugLineNum = 423;BA.debugLine="ToastMessageShow(\"No se han detectado tus coord";
+ //BA.debugLineNum = 425;BA.debugLine="ToastMessageShow(\"No se han detectado tus coord";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("No se han detectado tus coordenadas, intenta de nuevo!"),anywheresoftware.b4a.keywords.Common.False);
  }else if((mostCurrent._main._lang /*String*/ ).equals("en")) { 
- //BA.debugLineNum = 425;BA.debugLine="ToastMessageShow(\"Your coordinates have not bee";
+ //BA.debugLineNum = 427;BA.debugLine="ToastMessageShow(\"Your coordinates have not bee";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Your coordinates have not been found, try again!"),anywheresoftware.b4a.keywords.Common.False);
  };
- //BA.debugLineNum = 430;BA.debugLine="Return";
+ //BA.debugLineNum = 432;BA.debugLine="Return";
 if (true) return "";
  };
- //BA.debugLineNum = 432;BA.debugLine="Dim Map1 As Map";
+ //BA.debugLineNum = 434;BA.debugLine="Dim Map1 As Map";
 _map1 = new anywheresoftware.b4a.objects.collections.Map();
- //BA.debugLineNum = 433;BA.debugLine="Map1.Initialize";
+ //BA.debugLineNum = 435;BA.debugLine="Map1.Initialize";
 _map1.Initialize();
- //BA.debugLineNum = 434;BA.debugLine="Map1.Put(\"Id\", Main.currentproject)";
+ //BA.debugLineNum = 436;BA.debugLine="Map1.Put(\"Id\", Main.currentproject)";
 _map1.Put((Object)("Id"),(Object)(mostCurrent._main._currentproject /*String*/ ));
- //BA.debugLineNum = 438;BA.debugLine="Main.latitud = lblLat.Text";
+ //BA.debugLineNum = 440;BA.debugLine="Main.latitud = lblLat.Text";
 mostCurrent._main._latitud /*String*/  = mostCurrent._lbllat.getText();
- //BA.debugLineNum = 439;BA.debugLine="Main.longitud = lblLon.Text";
+ //BA.debugLineNum = 441;BA.debugLine="Main.longitud = lblLon.Text";
 mostCurrent._main._longitud /*String*/  = mostCurrent._lbllon.getText();
- //BA.debugLineNum = 441;BA.debugLine="Main.dateandtime = DateTime.Date(DateTime.Now)";
+ //BA.debugLineNum = 443;BA.debugLine="Main.dateandtime = DateTime.Date(DateTime.Now)";
 mostCurrent._main._dateandtime /*String*/  = anywheresoftware.b4a.keywords.Common.DateTime.Date(anywheresoftware.b4a.keywords.Common.DateTime.getNow());
- //BA.debugLineNum = 443;BA.debugLine="DBUtils.UpdateRecord(Starter.sqlDB, \"markers_loca";
+ //BA.debugLineNum = 445;BA.debugLine="DBUtils.UpdateRecord(Starter.sqlDB, \"markers_loca";
 mostCurrent._dbutils._updaterecord /*String*/ (mostCurrent.activityBA,mostCurrent._starter._sqldb /*anywheresoftware.b4a.sql.SQL*/ ,"markers_local","decimalLatitude",(Object)(mostCurrent._lbllat.getText()),_map1);
- //BA.debugLineNum = 444;BA.debugLine="DBUtils.UpdateRecord(Starter.sqlDB, \"markers_loca";
+ //BA.debugLineNum = 446;BA.debugLine="DBUtils.UpdateRecord(Starter.sqlDB, \"markers_loca";
 mostCurrent._dbutils._updaterecord /*String*/ (mostCurrent.activityBA,mostCurrent._starter._sqldb /*anywheresoftware.b4a.sql.SQL*/ ,"markers_local","decimalLongitude",(Object)(mostCurrent._lbllon.getText()),_map1);
- //BA.debugLineNum = 447;BA.debugLine="DBUtils.UpdateRecord(Starter.sqlDB, \"markers_loca";
+ //BA.debugLineNum = 449;BA.debugLine="DBUtils.UpdateRecord(Starter.sqlDB, \"markers_loca";
 mostCurrent._dbutils._updaterecord /*String*/ (mostCurrent.activityBA,mostCurrent._starter._sqldb /*anywheresoftware.b4a.sql.SQL*/ ,"markers_local","georeferencedDate",(Object)(anywheresoftware.b4a.keywords.Common.DateTime.Date(anywheresoftware.b4a.keywords.Common.DateTime.getNow())),_map1);
- //BA.debugLineNum = 449;BA.debugLine="If tipoDetect = \"GPSdetect\" Then";
+ //BA.debugLineNum = 451;BA.debugLine="If tipoDetect = \"GPSdetect\" Then";
 if ((_tipodetect).equals("GPSdetect")) { 
- //BA.debugLineNum = 450;BA.debugLine="DBUtils.UpdateRecord(Starter.sqlDB, \"markers_loc";
+ //BA.debugLineNum = 452;BA.debugLine="DBUtils.UpdateRecord(Starter.sqlDB, \"markers_loc";
 mostCurrent._dbutils._updaterecord /*String*/ (mostCurrent.activityBA,mostCurrent._starter._sqldb /*anywheresoftware.b4a.sql.SQL*/ ,"markers_local","gpsDetect",(Object)("si"),_map1);
  }else if((_tipodetect).equals("MAPAdetect")) { 
- //BA.debugLineNum = 452;BA.debugLine="DBUtils.UpdateRecord(Starter.sqlDB, \"markers_loc";
+ //BA.debugLineNum = 454;BA.debugLine="DBUtils.UpdateRecord(Starter.sqlDB, \"markers_loc";
 mostCurrent._dbutils._updaterecord /*String*/ (mostCurrent.activityBA,mostCurrent._starter._sqldb /*anywheresoftware.b4a.sql.SQL*/ ,"markers_local","mapaDetect",(Object)("si"),_map1);
  };
- //BA.debugLineNum = 456;BA.debugLine="Activity.RemoveAllViews";
+ //BA.debugLineNum = 458;BA.debugLine="Activity.RemoveAllViews";
 mostCurrent._activity.RemoveAllViews();
- //BA.debugLineNum = 457;BA.debugLine="Activity.Finish";
+ //BA.debugLineNum = 459;BA.debugLine="Activity.Finish";
 mostCurrent._activity.Finish();
- //BA.debugLineNum = 458;BA.debugLine="StartActivity(frmFotos)";
+ //BA.debugLineNum = 460;BA.debugLine="StartActivity(frmFotos)";
 anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurrent._frmfotos.getObject()));
- //BA.debugLineNum = 459;BA.debugLine="End Sub";
+ //BA.debugLineNum = 461;BA.debugLine="End Sub";
 return "";
 }
 public static String  _btndetectar_click() throws Exception{
@@ -673,7 +685,7 @@ return "";
 public static String  _fusedlocationprovider1_connectionfailed(int _connectionresult1) throws Exception{
  //BA.debugLineNum = 208;BA.debugLine="Sub FusedLocationProvider1_ConnectionFailed(Connec";
  //BA.debugLineNum = 209;BA.debugLine="Log(\"FusedLocationProvider1_ConnectionFailed\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("524969217","FusedLocationProvider1_ConnectionFailed",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("211141121","FusedLocationProvider1_ConnectionFailed",0);
  //BA.debugLineNum = 211;BA.debugLine="Select ConnectionResult1";
 switch (BA.switchObjectToInt(_connectionresult1,_fusedlocationprovider1.ConnectionResult.NETWORK_ERROR)) {
 case 0: {
@@ -692,7 +704,7 @@ uk.co.martinpearman.b4a.fusedlocationprovider.LocationRequest _locationrequest1 
 uk.co.martinpearman.b4a.fusedlocationprovider.LocationSettingsRequestBuilder _locationsettingsrequestbuilder1 = null;
  //BA.debugLineNum = 218;BA.debugLine="Sub FusedLocationProvider1_ConnectionSuccess";
  //BA.debugLineNum = 219;BA.debugLine="Log(\"FusedLocationProvider1_ConnectionSuccess\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("525034753","FusedLocationProvider1_ConnectionSuccess",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("211206657","FusedLocationProvider1_ConnectionSuccess",0);
  //BA.debugLineNum = 220;BA.debugLine="Dim LocationRequest1 As LocationRequest";
 _locationrequest1 = new uk.co.martinpearman.b4a.fusedlocationprovider.LocationRequest();
  //BA.debugLineNum = 221;BA.debugLine="LocationRequest1.Initialize";
@@ -719,7 +731,7 @@ return "";
 public static String  _fusedlocationprovider1_connectionsuspended(int _suspendedcause1) throws Exception{
  //BA.debugLineNum = 233;BA.debugLine="Sub FusedLocationProvider1_ConnectionSuspended(Sus";
  //BA.debugLineNum = 234;BA.debugLine="Log(\"FusedLocationProvider1_ConnectionSuspended\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("525100289","FusedLocationProvider1_ConnectionSuspended",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("211272193","FusedLocationProvider1_ConnectionSuspended",0);
  //BA.debugLineNum = 235;BA.debugLine="Select SuspendedCause1";
 switch (BA.switchObjectToInt(_suspendedcause1,_fusedlocationprovider1.SuspendedCause.CAUSE_NETWORK_LOST,_fusedlocationprovider1.SuspendedCause.CAUSE_SERVICE_DISCONNECTED)) {
 case 0: {
@@ -734,13 +746,13 @@ return "";
 public static String  _fusedlocationprovider1_locationchanged(anywheresoftware.b4a.gps.LocationWrapper _location1) throws Exception{
  //BA.debugLineNum = 242;BA.debugLine="Sub FusedLocationProvider1_LocationChanged(Locatio";
  //BA.debugLineNum = 243;BA.debugLine="Log(\"FusedLocationProvider1_LocationChanged\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("525165825","FusedLocationProvider1_LocationChanged",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("211337729","FusedLocationProvider1_LocationChanged",0);
  //BA.debugLineNum = 244;BA.debugLine="LastLocation=Location1";
 _lastlocation = _location1;
  //BA.debugLineNum = 245;BA.debugLine="Log(LastLocation.Latitude)";
-anywheresoftware.b4a.keywords.Common.LogImpl("525165827",BA.NumberToString(_lastlocation.getLatitude()),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("211337731",BA.NumberToString(_lastlocation.getLatitude()),0);
  //BA.debugLineNum = 246;BA.debugLine="Log(LastLocation.Longitude)";
-anywheresoftware.b4a.keywords.Common.LogImpl("525165828",BA.NumberToString(_lastlocation.getLongitude()),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("211337732",BA.NumberToString(_lastlocation.getLongitude()),0);
  //BA.debugLineNum = 247;BA.debugLine="UpdateUI";
 _updateui();
  //BA.debugLineNum = 248;BA.debugLine="End Sub";
@@ -750,7 +762,7 @@ public static String  _fusedlocationprovider1_locationsettingschecked(uk.co.mart
 uk.co.martinpearman.b4a.fusedlocationprovider.LocationSettingsStatus _locationsettingsstatus1 = null;
  //BA.debugLineNum = 249;BA.debugLine="Sub FusedLocationProvider1_LocationSettingsChecked";
  //BA.debugLineNum = 250;BA.debugLine="Log(\"FusedLocationProvider1_LocationSettingsCheck";
-anywheresoftware.b4a.keywords.Common.LogImpl("525231361","FusedLocationProvider1_LocationSettingsChecked",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("211403265","FusedLocationProvider1_LocationSettingsChecked",0);
  //BA.debugLineNum = 251;BA.debugLine="Dim LocationSettingsStatus1 As LocationSettingsSt";
 _locationsettingsstatus1 = new uk.co.martinpearman.b4a.fusedlocationprovider.LocationSettingsStatus();
 _locationsettingsstatus1 = _locationsettingsresult1.GetLocationSettingsStatus();
@@ -758,13 +770,13 @@ _locationsettingsstatus1 = _locationsettingsresult1.GetLocationSettingsStatus();
 switch (BA.switchObjectToInt(_locationsettingsstatus1.GetStatusCode(),_locationsettingsstatus1.StatusCodes.RESOLUTION_REQUIRED,_locationsettingsstatus1.StatusCodes.SETTINGS_CHANGE_UNAVAILABLE,_locationsettingsstatus1.StatusCodes.SUCCESS)) {
 case 0: {
  //BA.debugLineNum = 254;BA.debugLine="Log(\"RESOLUTION_REQUIRED\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("525231365","RESOLUTION_REQUIRED",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("211403269","RESOLUTION_REQUIRED",0);
  //BA.debugLineNum = 257;BA.debugLine="LocationSettingsStatus1.StartResolutionDialog(\"";
 _locationsettingsstatus1.StartResolutionDialog(mostCurrent.activityBA,"LocationSettingsResult1");
  break; }
 case 1: {
  //BA.debugLineNum = 259;BA.debugLine="Log(\"SETTINGS_CHANGE_UNAVAILABLE\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("525231370","SETTINGS_CHANGE_UNAVAILABLE",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("211403274","SETTINGS_CHANGE_UNAVAILABLE",0);
  //BA.debugLineNum = 262;BA.debugLine="Msgbox(\"Error, tu dispositivo no tiene localiza";
 anywheresoftware.b4a.keywords.Common.Msgbox(BA.ObjectToCharSequence("Error, tu dispositivo no tiene localización. Busca tu posición en el mapa!"),BA.ObjectToCharSequence("Problem"),mostCurrent.activityBA);
  //BA.debugLineNum = 263;BA.debugLine="Activity.Finish";
@@ -772,7 +784,7 @@ mostCurrent._activity.Finish();
  break; }
 case 2: {
  //BA.debugLineNum = 265;BA.debugLine="Log(\"SUCCESS\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("525231376","SUCCESS",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("211403280","SUCCESS",0);
  break; }
 }
 ;
@@ -835,7 +847,7 @@ return "";
 public static String  _locationsettingsresult1_resolutiondialogdismissed(boolean _locationsettingsupdated) throws Exception{
  //BA.debugLineNum = 270;BA.debugLine="Sub LocationSettingsResult1_ResolutionDialogDismis";
  //BA.debugLineNum = 271;BA.debugLine="Log(\"LocationSettingsResult1_ResolutionDialogDism";
-anywheresoftware.b4a.keywords.Common.LogImpl("525296897","LocationSettingsResult1_ResolutionDialogDismissed",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("211468801","LocationSettingsResult1_ResolutionDialogDismissed",0);
  //BA.debugLineNum = 272;BA.debugLine="If Not(LocationSettingsUpdated) Then";
 if (anywheresoftware.b4a.keywords.Common.Not(_locationsettingsupdated)) { 
  //BA.debugLineNum = 274;BA.debugLine="If Main.lang = \"es\" Then";

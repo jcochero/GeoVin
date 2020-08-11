@@ -133,6 +133,7 @@ public cepave.geovin.frmfotos _frmfotos = null;
 public cepave.geovin.utilidades _utilidades = null;
 public cepave.geovin.dbutils _dbutils = null;
 public cepave.geovin.starter _starter = null;
+public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.frmabout _frmabout = null;
 public cepave.geovin.frmaprender_chagas _frmaprender_chagas = null;
 public cepave.geovin.frmcamara _frmcamara = null;
@@ -141,7 +142,6 @@ public cepave.geovin.frmdatosanteriores _frmdatosanteriores = null;
 public cepave.geovin.frmeditprofile _frmeditprofile = null;
 public cepave.geovin.frmespecies _frmespecies = null;
 public cepave.geovin.frmidentificacionnew _frmidentificacionnew = null;
-public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.frmlogin _frmlogin = null;
 public cepave.geovin.frmpoliticadatos _frmpoliticadatos = null;
 public cepave.geovin.frmrecomendaciones _frmrecomendaciones = null;
@@ -153,9 +153,9 @@ public static String  _fm_messagearrived(anywheresoftware.b4a.objects.FirebaseNo
 anywheresoftware.b4a.objects.NotificationWrapper _n = null;
  //BA.debugLineNum = 27;BA.debugLine="Sub fm_MessageArrived (Message As RemoteMessage)";
  //BA.debugLineNum = 28;BA.debugLine="Log(\"Message arrived\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("515138817","Message arrived",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("215400961","Message arrived",0);
  //BA.debugLineNum = 29;BA.debugLine="Log($\"Message data: ${Message.GetData}\"$)";
-anywheresoftware.b4a.keywords.Common.LogImpl("515138818",("Message data: "+anywheresoftware.b4a.keywords.Common.SmartStringFormatter("",(Object)(_message.GetData().getObject()))+""),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("215400962",("Message data: "+anywheresoftware.b4a.keywords.Common.SmartStringFormatter("",(Object)(_message.GetData().getObject()))+""),0);
  //BA.debugLineNum = 30;BA.debugLine="Dim n As Notification";
 _n = new anywheresoftware.b4a.objects.NotificationWrapper();
  //BA.debugLineNum = 31;BA.debugLine="n.Initialize";
@@ -253,7 +253,7 @@ public static String  _subscribetotopics() throws Exception{
  //BA.debugLineNum = 16;BA.debugLine="fm.SubscribeToTopic(\"general\") 'you can subscribe";
 _fm.SubscribeToTopic("general");
  //BA.debugLineNum = 17;BA.debugLine="Log (fm.Token)";
-anywheresoftware.b4a.keywords.Common.LogImpl("515007747",_fm.getToken(),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("215269891",_fm.getToken(),0);
  //BA.debugLineNum = 18;BA.debugLine="End Sub";
 return "";
 }

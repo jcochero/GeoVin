@@ -27,6 +27,7 @@ public class frmlogin extends Activity implements B4AActivity{
 	public static final boolean fullScreen = false;
 	public static final boolean includeTitle = false;
     public static WeakReference<Activity> previousOne;
+    public static boolean dontPause;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -266,11 +267,17 @@ public class frmlogin extends Activity implements B4AActivity{
         if (this != mostCurrent)
 			return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
-        BA.LogInfo("** Activity (frmlogin) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        if (!dontPause)
+            BA.LogInfo("** Activity (frmlogin) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        else
+            BA.LogInfo("** Activity (frmlogin) Pause event (activity is not paused). **");
         if (mostCurrent != null)
             processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
-        processBA.setActivityPaused(true);
-        mostCurrent = null;
+        if (!dontPause) {
+            processBA.setActivityPaused(true);
+            mostCurrent = null;
+        }
+
         if (!activityBA.activity.isFinishing())
 			previousOne = new WeakReference<Activity>(this);
         anywheresoftware.b4a.Msgbox.isDismissing = false;
@@ -353,6 +360,7 @@ public cepave.geovin.frmfotos _frmfotos = null;
 public cepave.geovin.utilidades _utilidades = null;
 public cepave.geovin.dbutils _dbutils = null;
 public cepave.geovin.starter _starter = null;
+public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.firebasemessaging _firebasemessaging = null;
 public cepave.geovin.frmabout _frmabout = null;
 public cepave.geovin.frmaprender_chagas _frmaprender_chagas = null;
@@ -362,7 +370,6 @@ public cepave.geovin.frmdatosanteriores _frmdatosanteriores = null;
 public cepave.geovin.frmeditprofile _frmeditprofile = null;
 public cepave.geovin.frmespecies _frmespecies = null;
 public cepave.geovin.frmidentificacionnew _frmidentificacionnew = null;
-public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.frmpoliticadatos _frmpoliticadatos = null;
 public cepave.geovin.frmrecomendaciones _frmrecomendaciones = null;
 public cepave.geovin.httputils2service _httputils2service = null;
@@ -546,7 +553,7 @@ anywheresoftware.b4j.object.JavaObject _context = null;
  //BA.debugLineNum = 340;BA.debugLine="Dim GoogleApiAvailablity As JavaObject";
 _googleapiavailablity = new anywheresoftware.b4j.object.JavaObject();
  //BA.debugLineNum = 341;BA.debugLine="GoogleApiAvailablity = GoogleApiAvailablity.Initi";
-_googleapiavailablity.setObject((java.lang.Object)(_googleapiavailablity.InitializeStatic("com.google.android.gms.common.GoogleApiAvailability").RunMethod("getInstance",(Object[])(anywheresoftware.b4a.keywords.Common.Null))));
+_googleapiavailablity = (anywheresoftware.b4j.object.JavaObject) anywheresoftware.b4a.AbsObjectWrapper.ConvertToWrapper(new anywheresoftware.b4j.object.JavaObject(), (java.lang.Object)(_googleapiavailablity.InitializeStatic("com.google.android.gms.common.GoogleApiAvailability").RunMethod("getInstance",(Object[])(anywheresoftware.b4a.keywords.Common.Null))));
  //BA.debugLineNum = 342;BA.debugLine="Dim context As JavaObject";
 _context = new anywheresoftware.b4j.object.JavaObject();
  //BA.debugLineNum = 343;BA.debugLine="context.InitializeContext";
@@ -618,7 +625,7 @@ public static String  _login(String _usr,String _pss) throws Exception{
 cepave.geovin.downloadservice._downloaddata _dd = null;
  //BA.debugLineNum = 133;BA.debugLine="Sub Login (usr As String, pss As String)";
  //BA.debugLineNum = 135;BA.debugLine="Log(\"Starting LOGIN\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("526083330","Starting LOGIN",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("224903682","Starting LOGIN",0);
  //BA.debugLineNum = 137;BA.debugLine="Dim dd As DownloadData";
 _dd = new cepave.geovin.downloadservice._downloaddata();
  //BA.debugLineNum = 138;BA.debugLine="dd.url = Main.serverPath & \"/connect2/signin2.ph";
@@ -645,7 +652,7 @@ anywheresoftware.b4a.objects.collections.Map _newpunto = null;
 String _msj = "";
  //BA.debugLineNum = 151;BA.debugLine="Sub Login_Complete(Job As HttpJob)";
  //BA.debugLineNum = 152;BA.debugLine="Log(\"Conexion LOGIN: \" & Job.Success)";
-anywheresoftware.b4a.keywords.Common.LogImpl("526214401","Conexion LOGIN: "+BA.ObjectToString(_job._success /*boolean*/ ),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("225034753","Conexion LOGIN: "+BA.ObjectToString(_job._success /*boolean*/ ),0);
  //BA.debugLineNum = 153;BA.debugLine="If Job.Success = True Then";
 if (_job._success /*boolean*/ ==anywheresoftware.b4a.keywords.Common.True) { 
  //BA.debugLineNum = 154;BA.debugLine="Dim ret As String";
@@ -680,7 +687,7 @@ anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("R
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Google-registered user..."),anywheresoftware.b4a.keywords.Common.False);
  };
  //BA.debugLineNum = 174;BA.debugLine="Log(\"Usuario registrado por Google\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("526214423","Usuario registrado por Google",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("225034775","Usuario registrado por Google",0);
  //BA.debugLineNum = 179;BA.debugLine="Dim userExists As Map";
 _userexists = new anywheresoftware.b4a.objects.collections.Map();
  //BA.debugLineNum = 180;BA.debugLine="userExists.Initialize";
@@ -882,7 +889,7 @@ anywheresoftware.b4a.keywords.Common.StartActivity(processBA,(Object)(mostCurren
  };
  }else {
  //BA.debugLineNum = 314;BA.debugLine="Log(\"login not ok\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("526214563","login not ok",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("225034915","login not ok",0);
  //BA.debugLineNum = 315;BA.debugLine="If Main.lang = \"es\" Then";
 if ((mostCurrent._main._lang /*String*/ ).equals("es")) { 
  //BA.debugLineNum = 316;BA.debugLine="Msgbox(\"Al parecer hay un problema en nuestros";
@@ -905,7 +912,7 @@ if (_closesession==anywheresoftware.b4a.keywords.Common.True) {
 if (mostCurrent._starter._auth /*anywheresoftware.b4a.objects.FirebaseAuthWrapper*/ .getCurrentUser().IsInitialized()) { 
 mostCurrent._starter._auth /*anywheresoftware.b4a.objects.FirebaseAuthWrapper*/ .SignOutFromGoogle();};
  //BA.debugLineNum = 369;BA.debugLine="Log(\"Signin in with google...\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("526411011","Signin in with google...",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("225231363","Signin in with google...",0);
  //BA.debugLineNum = 370;BA.debugLine="Starter.auth.SignInWithGoogle";
 mostCurrent._starter._auth /*anywheresoftware.b4a.objects.FirebaseAuthWrapper*/ .SignInWithGoogle(processBA);
  //BA.debugLineNum = 371;BA.debugLine="If Main.lang = \"es\" Then";
@@ -918,7 +925,7 @@ anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("L
  };
  }else {
  //BA.debugLineNum = 378;BA.debugLine="Log(\"Signin in with google...\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("526411020","Signin in with google...",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("225231372","Signin in with google...",0);
  //BA.debugLineNum = 379;BA.debugLine="Starter.auth.SignInWithGoogle";
 mostCurrent._starter._auth /*anywheresoftware.b4a.objects.FirebaseAuthWrapper*/ .SignInWithGoogle(processBA);
  //BA.debugLineNum = 380;BA.debugLine="If Main.lang = \"es\" Then";
@@ -971,7 +978,7 @@ String _act = "";
 anywheresoftware.b4a.objects.collections.JSONParser _parser = null;
  //BA.debugLineNum = 437;BA.debugLine="Sub PasswordReset_Complete(Job As HttpJob)";
  //BA.debugLineNum = 438;BA.debugLine="Log(\"Recuperando email: \" & Job.Success)";
-anywheresoftware.b4a.keywords.Common.LogImpl("526804225","Recuperando email: "+BA.ObjectToString(_job._success /*boolean*/ ),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("225624577","Recuperando email: "+BA.ObjectToString(_job._success /*boolean*/ ),0);
  //BA.debugLineNum = 439;BA.debugLine="If Job.Success = True Then";
 if (_job._success /*boolean*/ ==anywheresoftware.b4a.keywords.Common.True) { 
  //BA.debugLineNum = 440;BA.debugLine="Dim ret As String";
@@ -1020,7 +1027,7 @@ anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Y
  };
  }else {
  //BA.debugLineNum = 474;BA.debugLine="Log(\"password reset not ok\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("526804261","password reset not ok",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("225624613","password reset not ok",0);
  //BA.debugLineNum = 475;BA.debugLine="Msgbox(\"Al parecer hay un problema en nuestros s";
 anywheresoftware.b4a.keywords.Common.Msgbox(BA.ObjectToCharSequence("Al parecer hay un problema en nuestros servidores, lo solucionaremos pronto!"),BA.ObjectToCharSequence("Mala mía"),mostCurrent.activityBA);
  };
@@ -1039,7 +1046,7 @@ return "";
 public static String  _signoutgoogle() throws Exception{
  //BA.debugLineNum = 389;BA.debugLine="Sub SignOutGoogle";
  //BA.debugLineNum = 390;BA.debugLine="Log(\"sign out from google\")";
-anywheresoftware.b4a.keywords.Common.LogImpl("526476545","sign out from google",0);
+anywheresoftware.b4a.keywords.Common.LogImpl("225296897","sign out from google",0);
  //BA.debugLineNum = 391;BA.debugLine="Starter.auth.SignOutFromGoogle";
 mostCurrent._starter._auth /*anywheresoftware.b4a.objects.FirebaseAuthWrapper*/ .SignOutFromGoogle();
  //BA.debugLineNum = 392;BA.debugLine="End Sub";

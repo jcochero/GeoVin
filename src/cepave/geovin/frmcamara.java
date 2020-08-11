@@ -27,6 +27,7 @@ public class frmcamara extends Activity implements B4AActivity{
 	public static final boolean fullScreen = false;
 	public static final boolean includeTitle = false;
     public static WeakReference<Activity> previousOne;
+    public static boolean dontPause;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -266,11 +267,17 @@ public class frmcamara extends Activity implements B4AActivity{
         if (this != mostCurrent)
 			return;
 		anywheresoftware.b4a.Msgbox.dismiss(true);
-        BA.LogInfo("** Activity (frmcamara) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        if (!dontPause)
+            BA.LogInfo("** Activity (frmcamara) Pause, UserClosed = " + activityBA.activity.isFinishing() + " **");
+        else
+            BA.LogInfo("** Activity (frmcamara) Pause event (activity is not paused). **");
         if (mostCurrent != null)
             processBA.raiseEvent2(_activity, true, "activity_pause", false, activityBA.activity.isFinishing());		
-        processBA.setActivityPaused(true);
-        mostCurrent = null;
+        if (!dontPause) {
+            processBA.setActivityPaused(true);
+            mostCurrent = null;
+        }
+
         if (!activityBA.activity.isFinishing())
 			previousOne = new WeakReference<Activity>(this);
         anywheresoftware.b4a.Msgbox.isDismissing = false;
@@ -368,6 +375,7 @@ public cepave.geovin.frmfotos _frmfotos = null;
 public cepave.geovin.utilidades _utilidades = null;
 public cepave.geovin.dbutils _dbutils = null;
 public cepave.geovin.starter _starter = null;
+public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.firebasemessaging _firebasemessaging = null;
 public cepave.geovin.frmabout _frmabout = null;
 public cepave.geovin.frmaprender_chagas _frmaprender_chagas = null;
@@ -376,7 +384,6 @@ public cepave.geovin.frmdatosanteriores _frmdatosanteriores = null;
 public cepave.geovin.frmeditprofile _frmeditprofile = null;
 public cepave.geovin.frmespecies _frmespecies = null;
 public cepave.geovin.frmidentificacionnew _frmidentificacionnew = null;
-public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.frmlogin _frmlogin = null;
 public cepave.geovin.frmpoliticadatos _frmpoliticadatos = null;
 public cepave.geovin.frmrecomendaciones _frmrecomendaciones = null;
@@ -594,7 +601,7 @@ mostCurrent._camex._takepicture /*String*/ ();
 			processBA.setLastException(e14); //BA.debugLineNum = 343;BA.debugLine="ToastMessageShow(\"Error tomando la foto\", False";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Error tomando la foto"),anywheresoftware.b4a.keywords.Common.False);
  //BA.debugLineNum = 344;BA.debugLine="Log(LastException)";
-anywheresoftware.b4a.keywords.Common.LogImpl("517367056",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("217629200",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
  };
  };
  //BA.debugLineNum = 349;BA.debugLine="End Sub";
@@ -620,7 +627,7 @@ mostCurrent._camex._savepicturetofile /*String*/ (_data,anywheresoftware.b4a.key
 			processBA.setLastException(e4); //BA.debugLineNum = 356;BA.debugLine="ToastMessageShow(\"Error guardando la foto\", Fals";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Error guardando la foto"),anywheresoftware.b4a.keywords.Common.False);
  //BA.debugLineNum = 357;BA.debugLine="Log(LastException)";
-anywheresoftware.b4a.keywords.Common.LogImpl("517432583",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("217694727",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
  //BA.debugLineNum = 358;BA.debugLine="Return";
 if (true) return "";
  };
@@ -672,9 +679,9 @@ public static String  _camera1_ready(boolean _success) throws Exception{
  //BA.debugLineNum = 286;BA.debugLine="If Success Then";
 if (_success) { 
  //BA.debugLineNum = 287;BA.debugLine="Log(camEx.GetSupportedPicturesSizes)";
-anywheresoftware.b4a.keywords.Common.LogImpl("517235970",BA.ObjectToString(mostCurrent._camex._getsupportedpicturessizes /*cepave.geovin.cameraexclass._camerasize[]*/ ()),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("217498114",BA.ObjectToString(mostCurrent._camex._getsupportedpicturessizes /*cepave.geovin.cameraexclass._camerasize[]*/ ()),0);
  //BA.debugLineNum = 288;BA.debugLine="Log(camEx.GetPictureSize)";
-anywheresoftware.b4a.keywords.Common.LogImpl("517235971",BA.ObjectToString(mostCurrent._camex._getpicturesize /*cepave.geovin.cameraexclass._camerasize*/ ()),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("217498115",BA.ObjectToString(mostCurrent._camex._getpicturesize /*cepave.geovin.cameraexclass._camerasize*/ ()),0);
  //BA.debugLineNum = 289;BA.debugLine="SetMaxSize";
 _setmaxsize();
  //BA.debugLineNum = 290;BA.debugLine="camEx.SetContinuousAutoFocus";
@@ -684,7 +691,7 @@ mostCurrent._camex._commitparameters /*String*/ ();
  //BA.debugLineNum = 292;BA.debugLine="camEx.StartPreview";
 mostCurrent._camex._startpreview /*String*/ ();
  //BA.debugLineNum = 293;BA.debugLine="Log(camEx.GetPreviewSize)";
-anywheresoftware.b4a.keywords.Common.LogImpl("517235976",BA.ObjectToString(mostCurrent._camex._getpreviewsize /*cepave.geovin.cameraexclass._camerasize*/ ()),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("217498120",BA.ObjectToString(mostCurrent._camex._getpreviewsize /*cepave.geovin.cameraexclass._camerasize*/ ()),0);
  }else {
  //BA.debugLineNum = 295;BA.debugLine="If Main.lang = \"es\" Then";
 if ((mostCurrent._main._lang /*String*/ ).equals("es")) { 
@@ -731,7 +738,7 @@ mostCurrent._dbutils._updaterecord /*String*/ (mostCurrent.activityBA,mostCurren
  } 
        catch (Exception e17) {
 			processBA.setLastException(e17); //BA.debugLineNum = 475;BA.debugLine="Log(LastException)";
-anywheresoftware.b4a.keywords.Common.LogImpl("517694740",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("217956884",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
  //BA.debugLineNum = 476;BA.debugLine="If Main.lang = \"es\" Then";
 if ((mostCurrent._main._lang /*String*/ ).equals("es")) { 
  //BA.debugLineNum = 477;BA.debugLine="ToastMessageShow(\"Hubo un problema adjuntando";
@@ -934,7 +941,7 @@ String _flash = "";
  //BA.debugLineNum = 406;BA.debugLine="Dim f() As Float = camEx.GetFocusDistances";
 _f = mostCurrent._camex._getfocusdistances /*float[]*/ ();
  //BA.debugLineNum = 407;BA.debugLine="Log(f(0) & \", \" & f(1) & \", \" & f(2))";
-anywheresoftware.b4a.keywords.Common.LogImpl("517498114",BA.NumberToString(_f[(int) (0)])+", "+BA.NumberToString(_f[(int) (1)])+", "+BA.NumberToString(_f[(int) (2)]),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("217760258",BA.NumberToString(_f[(int) (0)])+", "+BA.NumberToString(_f[(int) (1)])+", "+BA.NumberToString(_f[(int) (2)]),0);
  //BA.debugLineNum = 408;BA.debugLine="Dim flashModes As List = camEx.GetSupportedFlashM";
 _flashmodes = new anywheresoftware.b4a.objects.collections.List();
 _flashmodes = mostCurrent._camex._getsupportedflashmodes /*anywheresoftware.b4a.objects.collections.List*/ ();
@@ -977,7 +984,7 @@ mostCurrent._btnadjuntarfoto.setVisible(anywheresoftware.b4a.keywords.Common.Tru
 			processBA.setLastException(e6); //BA.debugLineNum = 281;BA.debugLine="ToastMessageShow(\"Error en la cámara\", False)";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Error en la cámara"),anywheresoftware.b4a.keywords.Common.False);
  //BA.debugLineNum = 282;BA.debugLine="Log(LastException)";
-anywheresoftware.b4a.keywords.Common.LogImpl("517170441",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("217432585",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
  };
  //BA.debugLineNum = 284;BA.debugLine="End Sub";
 return "";
@@ -1008,7 +1015,7 @@ _cc.Show(processBA,"image/","Choose the photo");
 			processBA.setLastException(e13); //BA.debugLineNum = 177;BA.debugLine="ToastMessageShow(\"Error en la galería, pruebe de";
 anywheresoftware.b4a.keywords.Common.ToastMessageShow(BA.ObjectToCharSequence("Error en la galería, pruebe de nuevo"),anywheresoftware.b4a.keywords.Common.False);
  //BA.debugLineNum = 178;BA.debugLine="Log(LastException)";
-anywheresoftware.b4a.keywords.Common.LogImpl("517039377",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("217301521",BA.ObjectToString(anywheresoftware.b4a.keywords.Common.LastException(mostCurrent.activityBA)),0);
  };
  //BA.debugLineNum = 181;BA.debugLine="End Sub";
 return "";
@@ -1087,7 +1094,7 @@ _mincs = _cs;
  //BA.debugLineNum = 317;BA.debugLine="camEx.SetPictureSize(minCS.Width, minCS.Height)";
 mostCurrent._camex._setpicturesize /*String*/ (_mincs.Width /*int*/ ,_mincs.Height /*int*/ );
  //BA.debugLineNum = 318;BA.debugLine="Log(\"Selected size: \" & minCS)";
-anywheresoftware.b4a.keywords.Common.LogImpl("517301517","Selected size: "+BA.ObjectToString(_mincs),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("217563661","Selected size: "+BA.ObjectToString(_mincs),0);
  //BA.debugLineNum = 319;BA.debugLine="End Sub";
 return "";
 }

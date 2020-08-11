@@ -20,6 +20,7 @@ public cepave.geovin.downloadservice _downloadservice = null;
 public cepave.geovin.frmfotos _frmfotos = null;
 public cepave.geovin.dbutils _dbutils = null;
 public cepave.geovin.starter _starter = null;
+public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.firebasemessaging _firebasemessaging = null;
 public cepave.geovin.frmabout _frmabout = null;
 public cepave.geovin.frmaprender_chagas _frmaprender_chagas = null;
@@ -29,7 +30,6 @@ public cepave.geovin.frmdatosanteriores _frmdatosanteriores = null;
 public cepave.geovin.frmeditprofile _frmeditprofile = null;
 public cepave.geovin.frmespecies _frmespecies = null;
 public cepave.geovin.frmidentificacionnew _frmidentificacionnew = null;
-public cepave.geovin.frmlocalizacion _frmlocalizacion = null;
 public cepave.geovin.frmlogin _frmlogin = null;
 public cepave.geovin.frmpoliticadatos _frmpoliticadatos = null;
 public cepave.geovin.frmrecomendaciones _frmrecomendaciones = null;
@@ -55,7 +55,7 @@ public static String  _getdeviceid(anywheresoftware.b4a.BA _ba) throws Exception
  //BA.debugLineNum = 113;BA.debugLine="Return FirebaseMessaging.fm.Token";
 if (true) return mostCurrent._firebasemessaging._fm /*anywheresoftware.b4a.objects.FirebaseNotificationsService.FirebaseMessageWrapper*/ .getToken();
  //BA.debugLineNum = 114;BA.debugLine="Log(FirebaseMessaging.fm.Token)";
-anywheresoftware.b4a.keywords.Common.LogImpl("58781845",mostCurrent._firebasemessaging._fm /*anywheresoftware.b4a.objects.FirebaseNotificationsService.FirebaseMessageWrapper*/ .getToken(),0);
+anywheresoftware.b4a.keywords.Common.LogImpl("27208981",mostCurrent._firebasemessaging._fm /*anywheresoftware.b4a.objects.FirebaseNotificationsService.FirebaseMessageWrapper*/ .getToken(),0);
  //BA.debugLineNum = 116;BA.debugLine="End Sub";
 return "";
 }
